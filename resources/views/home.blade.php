@@ -39,7 +39,7 @@
             @for($i=1;$i<=3;$i++)
             <div class="col">
                 <div class="card h-100">
-                    <img src="https://via.placeholder.com/600x400?text=San+pham+Thô+" class="card-img-top" alt="...">
+                    <img src="https://placehold.co/600x400/e8e8e8/333333?text=San+pham+Tho" class="card-img-top" alt="...">
                     <div class="card-body d-flex flex-column">
                         <h5 class="card-title">Sản phẩm Thô #{{ $i }}</h5>
                         <p class="card-text text-muted">Giá: 1,000,000₫</p>
@@ -62,7 +62,7 @@
             @for($i=1;$i<=3;$i++)
             <div class="col">
                 <div class="card h-100">
-                    <img src="https://via.placeholder.com/600x400?text=San+pham+Tinh+Che" class="card-img-top" alt="...">
+                    <img src="https://placehold.co/600x400/e8e8e8/333333?text=San+pham+Tinh+Che" class="card-img-top" alt="...">
                     <div class="card-body d-flex flex-column">
                         <h5 class="card-title">Sản phẩm Tinh Chế #{{ $i }}</h5>
                         <p class="card-text text-muted">Giá: 1,500,000₫</p>
@@ -85,7 +85,7 @@
             @for($i=1;$i<=3;$i++)
             <div class="col">
                 <div class="card h-100 rounded">
-                    <img src="https://via.placeholder.com/600x400?text=San+pham+Chung+San" class="card-img-top" alt="...">
+                    <img src="https://placehold.co/600x400/e8e8e8/333333?text=San+pham+Chung+San" class="card-img-top" alt="...">
                     <div class="card-body d-flex flex-column">
                         <h5 class="card-title">Sản phẩm Chưng Sẵn #{{ $i }}</h5>
                         <p class="card-text text-muted">Giá: 200,000₫</p>

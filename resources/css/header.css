@@ -1,0 +1,465 @@
+/* Header-specific styles extracted from style-layout.css */
+
+/* Main header container */
+.header-main {
+  z-index: 1030;
+  background-color: transparent;
+}
+
+/* Fix potential layout issues */
+#mainHeader {
+  overflow: visible;
+}
+
+/* Container constraint for header content */
+.header-topbar .container,
+.header-nav .container {
+  /* Remove fixed max-width to match Bootstrap's responsive container */
+  margin: 0 auto;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+/* Ensure header items align properly */
+.header-topbar-container {
+  min-height: 72px;
+  gap: 1rem;
+}
+
+/* Right section spacing */
+.header-topbar-container > .d-flex.gap-3 {
+  gap: 1.5rem !important;
+  flex-shrink: 0;
+}
+
+/* Top bar styling */
+.header-topbar {
+  background-color: #1e3d37 !important;
+  color: #FFFFFF;
+  padding: 0;
+}
+
+/* Search section */
+.header-search-btn {
+  background-color: #FFF4C1;
+  border: 1px solid rgba(0,0,0,0.08);
+}
+
+/* Icons and contact info */
+.header-icon {
+  font-size: 2rem;
+}
+
+.header-phone-text {
+  font-size: 0.9rem;
+}
+
+/* Cart dropdown */
+.header-cart-dropdown {
+  width: 320px;
+}
+
+.header-cart-content {
+  max-height: 300px;
+  overflow: auto;
+}
+
+.header-cart-item-img {
+  width: 48px;
+  height: 48px;
+  object-fit: cover;
+}
+
+.header-cart-empty-icon {
+  font-size: 3rem;
+}
+
+/* User avatar */
+.header-user-avatar {
+  width: 34px;
+  height: 34px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Logo */
+.header-logo {
+  height: 100px;
+  width: 100px;
+  max-height: 100px;
+  max-width: 100px;
+  display: block;
+  object-fit: contain;
+}
+
+/* Header main navigation styling */
+#mainHeader .navbar, #mainHeader .header-nav {
+  background-color: #ffffff !important;
+}
+
+#mainHeader .navbar .nav-link, #mainHeader .header-nav .nav-link {
+  color: #000 !important;
+  font-weight: 600;
+}
+
+/* Categories button styling with light yellow theme */
+#mainHeader .btn-outline-secondary {
+  color: #000 !important;
+  font-weight: 600;
+  border-color: rgba(0,0,0,0.08);
+  transition: all 0.3s ease;
+}
+
+/* Button open/hover/active states */
+#mainHeader .btn-outline-secondary:hover,
+#mainHeader .btn-outline-secondary:focus,
+#mainHeader .btn-outline-secondary:active {
+  background-color: #fff9e6 !important;
+  border-color: #ffc107 !important;
+  color: #000 !important;
+  box-shadow: 0 2px 8px rgba(255, 193, 7, 0.12);
+}
+
+/* When the dropdown parent has .show (open), style the button */
+.dropdown.show > .btn-outline-secondary,
+.dropdown.show > .btn-outline-secondary:focus {
+  background-color: #fff9e6 !important;
+  border-color: #ffc107 !important;
+  color: #000 !important;
+  box-shadow: 0 2px 8px rgba(255, 193, 7, 0.18);
+}
+
+/* Custom dropdown menu styling */
+#mainHeader .dropdown-menu.p-0 {
+  overflow: hidden;
+  border: none;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+}
+
+/* Ensure dropdown is visible and positioned correctly */
+#mainHeader .dropdown {
+  position: relative;
+}
+
+#mainHeader .dropdown-menu {
+  position: absolute !important;
+  top: 100% !important;
+  left: 0 !important;
+  z-index: 1050 !important;
+  display: none;
+  min-width: 10rem;
+  margin: 0;
+  padding: 0.5rem 0;
+  font-size: 1rem;
+  color: #212529;
+  text-align: left;
+  list-style: none;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid rgba(0,0,0,.15);
+  border-radius: 0.25rem;
+}
+
+#mainHeader .dropdown-menu.show {
+  display: block !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+#mainHeader .dropdown-menu-end {
+  right: 0 !important;
+  left: auto !important;
+}
+
+#mainHeader .dropdown-menu.p-0 {
+  overflow: visible !important;
+  border: none;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+  padding: 0 !important;
+}
+
+.header-categories-dropdown {
+  width: 260px;
+  border-radius: 10px;
+}
+
+.header-product-dropdown {
+  width: 210px;
+  border-radius: 10px;
+}
+
+/* Menu item base styling */
+.menu-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  color: #333;
+  text-decoration: none;
+  transition: all 0.25s ease;
+  border-left: 3px solid transparent;
+}
+
+/* Menu item hover effect with light yellow */
+.menu-item:hover {
+  background: linear-gradient(90deg, #fff9e6 0%, #fffcf0 100%);
+  transform: translateX(4px);
+  color: #000;
+  border-left-color: #ffc107;
+}
+
+.menu-item i {
+  width: 28px;
+  text-align: center;
+  color: #6c757d;
+  font-size: 1.1rem;
+  transition: color 0.2s ease;
+}
+
+.menu-item:hover i {
+  color: #ffc107;
+}
+
+.menu-item span {
+  flex: 1;
+  font-weight: 500;
+}
+
+.menu-item .bi-chevron-right {
+  color: #9aa0a6;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.menu-item:hover .bi-chevron-right {
+  transform: translateX(2px);
+  color: #ffc107;
+}
+
+/* Enhanced dropdown animation - simplified */
+@keyframes slideDownFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+#mainHeader .dropdown-menu.show {
+  animation: slideDownFadeIn 0.2s ease-out;
+}
+
+/* Staggered menu item animation - simplified version */
+#mainHeader .dropdown-menu.show .menu-item {
+  animation: fadeInUp 0.2s ease forwards;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 767px) {
+  .header-logo {
+    height: 60px !important;
+    width: 60px !important;
+    max-height: 60px !important;
+    max-width: 60px !important;
+  }
+  
+  .header-topbar-container {
+    min-height: 60px;
+  }
+  
+  .header-icon {
+    font-size: 1.5rem;
+  }
+  
+  #mainHeader .navbar .nav-link { 
+    font-weight: 600; 
+  }
+  
+  .menu-item { 
+    padding: 12px 14px; 
+  }
+}
+
+/* ===== ADDITIONAL LAYOUT STYLES ===== */
+
+:root {
+  /* Increased to cover two-row header (top + nav) */
+  --header-height: 160px;
+}
+
+body {
+  padding-top: var(--header-height);
+}
+
+/* Branding colors */
+.brand-brown { 
+  background-color: #1e3d37; 
+}
+
+.brand-light { 
+  background-color: #FFF8DC; 
+}
+
+.brand-accent { 
+  background-color: #FFF4C1; 
+}
+
+.text-brown { 
+  color: #1e3d37; 
+}
+
+/* Header animations */
+#mainHeader {
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+#mainHeader.shadow-header {
+  box-shadow: 0 2px 15px rgba(0,0,0,0.15);
+}
+
+/* When scrolled, hide the navigation bar */
+#mainHeader.header-scrolled .header-nav {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1), 
+              opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Normal state - nav visible */
+#mainHeader .header-nav {
+  max-height: 100px;
+  opacity: 1;
+  transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1), 
+              opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Compact header when scrolled */
+#mainHeader.header-scrolled .header-topbar-container {
+  min-height: 60px !important;
+  transition: min-height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+#mainHeader.header-scrolled .header-logo {
+  height: 50px !important;
+  width: 50px !important;
+  max-height: 50px !important;
+  max-width: 50px !important;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Show/hide categories dropdown based on scroll */
+.header-scrolled-categories {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1), 
+              visibility 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+#mainHeader.header-scrolled .header-scrolled-categories {
+  opacity: 1 !important;
+  visibility: visible !important;
+  display: block !important;
+}
+
+#mainHeader.header-scrolled .btn-outline-light {
+  border-color: rgba(255, 255, 255, 0.3);
+  color: #fff;
+}
+
+#mainHeader.header-scrolled .btn-outline-light:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+/* Nav link styles override */
+.nav-link {
+  color: rgba(255,255,255,0.9) !important;
+  transition: color 0.3s ease, background-color 0.3s ease;
+  border-radius: 4px;
+}
+
+.nav-link:hover {
+  color: #fff !important;
+  background-color: rgba(255,255,255,0.06);
+}
+
+/* Hover effects */
+.hover-warning:hover {
+  background-color: #F5B041 !important;
+  color: #000 !important;
+}
+
+/* Dropdown item styling */
+.dropdown-item:hover {
+  background-color: #FFF4C1;
+}
+
+.dropdown-item:active {
+  background-color: #8B4513;
+  color: white;
+}
+
+/* Cart preview */
+.cart-preview-menu {
+  margin-top: 0.5rem;
+}
+
+/* Badge animation */
+.animate-badge {
+  animation: badge-pop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transform-origin: center center;
+}
+
+@keyframes badge-pop {
+  0% { 
+    transform: translate(-50%, -50%) scale(0); 
+  }
+  100% { 
+    transform: translate(-50%, -50%) scale(1); 
+  }
+}
+
+/* Responsive improvements */
+@media (max-width: 991.98px) {
+  :root {
+    --header-height: 140px;
+  }
+  
+  .cart-preview-menu {
+    position: fixed !important;
+    top: var(--bs-dropdown-spacer) !important;
+    right: 1rem !important;
+    left: 1rem !important;
+    width: auto !important;
+    margin-top: 0;
+  }
+  
+  .navbar-nav .dropdown-menu {
+    background-color: rgba(255,248,220,0.95);
+    backdrop-filter: blur(10px);
+    margin-top: 0;
+  }
+  
+  .navbar-collapse {
+    background-color: rgba(30,61,55,0.95);
+    backdrop-filter: blur(10px);
+    padding: 1rem;
+    border-radius: 0.5rem;
+    margin-top: 0.5rem;
+  }
+}

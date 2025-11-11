@@ -12,7 +12,7 @@
         @foreach($products as $product)
             <div class="col">
                 <div class="card h-100">
-                    <img src="{{ $product->image ?? 'https://via.placeholder.com/600x400?text=No+Image' }}" class="card-img-top" alt="">
+                    <img src="{{ $product->image ?? 'https://placehold.co/600x400/e8e8e8/999999?text=No+Image' }}" class="card-img-top" alt="">
                     <div class="card-body d-flex flex-column">
                         <h5 class="card-title">{{ $product->name }}</h5>
                         <p class="card-text text-muted">{{ number_format($product->price,0,',','.') }}₫</p>

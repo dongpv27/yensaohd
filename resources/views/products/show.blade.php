@@ -4,7 +4,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-6">
-            <img src="{{ $product->image ?? 'https://via.placeholder.com/800x600?text=No+Image' }}" class="img-fluid" alt="">
+            <img src="{{ $product->image ?? 'https://placehold.co/800x600/e8e8e8/999999?text=No+Image' }}" class="img-fluid" alt="">
         </div>
         <div class="col-md-6">
             <h1>{{ $product->name }}</h1>
