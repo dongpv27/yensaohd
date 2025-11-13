@@ -5,16 +5,24 @@
         <div class="container">
             <div class="d-flex align-items-center justify-content-between header-topbar-container">
                 <!-- Logo -->
-                <a class="d-flex align-items-center text-dark text-decoration-none" href="/">
-                    <img src="{{ asset('images/banners/logo.png') }}" 
-                         alt="Yến Sào Hoàng Đăng" 
-                         width="100" 
-                         height="100" 
-                         loading="eager"
-                         decoding="async"
-                         class="d-none d-sm-block me-3 header-logo">
-                </a>
-
+                <div class="d-flex align-items-center">
+                    <a class="d-flex align-items-center text-dark text-decoration-none" href="/">
+                        <img src="{{ asset('images/banners/logo.png') }}" 
+                             alt="Yến Sào Hoàng Đăng" 
+                             width="100" 
+                             height="100"
+                             loading="eager"
+                             decoding="async"
+                             class="d-none d-sm-block me-3 header-logo">
+                    </a>
+                    <div class="d-none d-lg-flex flex-column header-brand-text">
+                        <div class="header-brand-name">YẾN SÀO HOÀNG ĐĂNG</div>
+                        <div class="header-brand-tagline">
+                            <span class="tagline-yellow">Nguyên chất</span>
+                            <span class="tagline-red">100%</span>
+                        </div>
+                    </div>
+                </div>
                 <!-- Categories dropdown (visible when scrolled) -->
                 <div class="dropdown header-scrolled-categories d-none">
                     <button class="btn btn-outline-light d-flex align-items-center" id="categoriesBtnScrolled" data-bs-toggle="dropdown" aria-expanded="false">
@@ -37,7 +45,7 @@
                 <div class="flex-grow-1 px-3 d-none d-md-block">
                     <form action="/products" method="get">
                         <div class="input-group">
-                            <input name="search" class="form-control" placeholder="Tìm sản phẩm, ví dụ: yến thô" aria-label="Tìm sản phẩm">
+                            <input name="search" class="form-control" placeholder="Tìm kiếm sản phẩm" aria-label="Tìm sản phẩm">
                             <button class="btn text-dark header-search-btn" type="submit">Tìm</button>
                         </div>
                     </form>

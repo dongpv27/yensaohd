@@ -26,6 +26,30 @@
   gap: 1rem;
 }
 
+/* Logo and brand container */
+.header-topbar-container > div:first-child {
+  transition: opacity 0.4s ease, visibility 0.4s ease, transform 0.4s ease;
+  opacity: 1;
+  visibility: visible;
+  transform: scale(1);
+}
+
+/* Hide logo container when scrolled */
+.header-scrolled .header-topbar-container > div:first-child {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  transform: scale(0.95);
+  width: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: hidden;
+}
+
+/* Adjust layout when scrolled - move categories to left */
+.header-scrolled .header-topbar-container {
+  justify-content: flex-start !important;
+}
+
 /* Right section spacing */
 .header-topbar-container > .d-flex.gap-3 {
   gap: 1.5rem !important;
@@ -34,9 +58,85 @@
 
 /* Top bar styling */
 .header-topbar {
-  background-color: #CD950C !important;
+  background-color: #3D3D3D !important;
   color: #FFFFFF;
   padding: 0;
+}
+
+/* Brand text styling */
+.header-brand-text {
+  line-height: 1.2;
+  margin-left: 0.5rem;
+  align-items: center;
+  transition: opacity 0.4s ease, transform 0.4s ease, visibility 0.4s ease;
+  opacity: 1;
+  transform: translateY(0);
+  white-space: nowrap;
+  visibility: visible;
+}
+
+.header-brand-name {
+  color: #ffc107;
+  font-size: 1.5rem;
+  font-weight: 800;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  letter-spacing: 1px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  margin-bottom: 2px;
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  opacity: 1;
+  transform: translateY(0);
+  white-space: nowrap;
+}
+
+.header-brand-tagline {
+  font-size: 1.2rem;
+  font-weight: 700;
+  font-family: 'Times New Roman', serif;
+  font-style: italic;
+  letter-spacing: 1px;
+  text-align: center;
+  transition: opacity 0.5s ease 0.2s, transform 0.5s ease 0.2s, max-height 0.5s ease 0.2s;
+  margin-bottom: 7px;
+  opacity: 1;
+  transform: translateY(0);
+  max-height: 50px;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.tagline-yellow {
+  color: #ffc107;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.tagline-red {
+  color: #dc3545;
+  font-style: italic;
+  font-weight: 900;
+  font-size: 1.1rem;
+  margin-left: 6px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* Hide entire brand text when scrolled */
+.header-scrolled .header-brand-text {
+  opacity: 0;
+  transform: translateY(-15px);
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.header-scrolled .header-brand-tagline {
+  opacity: 0;
+  transform: translateY(-10px);
+  max-height: 0;
+  margin-bottom: 0;
+}
+
+.header-scrolled .header-brand-name {
+  opacity: 0;
+  transform: translateY(-15px);
 }
 
 /* Search section */
@@ -157,6 +257,17 @@
   max-width: 120px;
   display: block;
   object-fit: contain;
+  opacity: 1;
+  transition: opacity 0.5s ease, transform 0.5s ease, visibility 0.5s ease;
+  transform: scale(1);
+  visibility: visible;
+}
+
+/* Hide logo when scrolled with smooth fade animation */
+.header-scrolled .header-logo {
+  opacity: 0;
+  transform: scale(0.9);
+  visibility: hidden;
 }
 
 /* Header main navigation styling */
@@ -473,6 +584,8 @@ body {
 .header-scrolled-categories {
   opacity: 0;
   visibility: hidden;
+  position: absolute;
+  left: 0;
   transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1), 
               visibility 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -481,16 +594,23 @@ body {
   opacity: 1 !important;
   visibility: visible !important;
   display: block !important;
+  position: relative;
 }
 
 #mainHeader.header-scrolled .btn-outline-light {
   border-color: rgba(255, 255, 255, 0.3);
   color: #fff;
+  background-color: transparent;
 }
 
 #mainHeader.header-scrolled .btn-outline-light:hover {
   background-color: rgba(255, 255, 255, 0.1);
   border-color: rgba(255, 255, 255, 0.5);
+  color: #fff;
+}
+
+#mainHeader.header-scrolled .btn-outline-light .bi-list {
+  color: #fff;
 }
 
 /* Nav link styles override */
