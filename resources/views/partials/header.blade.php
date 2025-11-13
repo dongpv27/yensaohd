@@ -14,14 +14,14 @@
                              loading="eager"
                              decoding="async"
                              class="d-none d-sm-block me-3 header-logo">
-                    </a>
+                    
                     <div class="d-none d-lg-flex flex-column header-brand-text">
                         <div class="header-brand-name">YẾN SÀO HOÀNG ĐĂNG</div>
                         <div class="header-brand-tagline">
-                            <span class="tagline-yellow">Nguyên chất</span>
-                            <span class="tagline-red">100%</span>
+                            <span class="tagline-yellow">Chất lượng vàng - Giá yêu thương</span>
                         </div>
                     </div>
+                    </a>
                 </div>
                 <!-- Categories dropdown (visible when scrolled) -->
                 <div class="dropdown header-scrolled-categories d-none">
