@@ -7,6 +7,18 @@ use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
+    /** Display home page with best sellers */
+    public function home()
+    {
+        $bestSellers = Product::where('is_best_seller', true)
+            ->orWhere('sold_count', '>', 0)
+            ->orderBy('sold_count', 'desc')
+            ->take(10)
+            ->get();
+
+        return view('home', compact('bestSellers'));
+    }
+
     /** Display a listing of products. */
     public function index()
     {

@@ -6,9 +6,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\Admin\ProductController as AdminProductController;
 use App\Http\Controllers\AuthController;
 
-Route::get('/', function () {
-    return view('home');
-});
+Route::get('/', [ProductController::class, 'home'])->name('home');
 
 // Products
 Route::get('/products', [ProductController::class, 'index']);
