@@ -368,7 +368,7 @@
                             <div class="col-md-4">
                                 <div class="review-card text-center p-4 h-100">
                                     <div class="customer-avatar mx-auto mb-3">
-                                        <img src="{{ asset($review['avatar']) }}" alt="{{ $review['name'] }}" class="rounded-circle" onerror="this.src='{{ asset('images/avatars/default-avatar.jpg') }}'">
+                                        <img src="{{ asset($review['avatar']) }}" alt="{{ $review['name'] }}" class="rounded-circle">
                                     </div>
                                     <h5 class="customer-name fw-bold mb-2">{{ $review['name'] }}</h5>
                                     <div class="rating mb-3">

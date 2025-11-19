@@ -494,7 +494,7 @@ body {
 }
 
 .brand-light { 
-  background-color: #FFF8DC; 
+  background: linear-gradient(to right, #FFFAF0, #FFF8DC, #FFD700); 
 }
 
 .brand-accent { 
