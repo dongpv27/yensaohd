@@ -73,7 +73,7 @@ class CartController extends Controller
 
     public function index()
     {
-        return view('cart');
+        return view('cart.index');
     }
 
     public function add(Request $request, Product $product)
@@ -301,7 +301,7 @@ class CartController extends Controller
             return $item->price * $item->quantity;
         });
 
-        return view('checkout', compact('cart', 'total'));
+        return view('cart.checkout', compact('cart', 'total'));
     }
 
     public function processCheckout(Request $request)
@@ -428,6 +428,6 @@ class CartController extends Controller
             return redirect('/')->with('error', 'Không tìm thấy thông tin đơn hàng');
         }
         
-        return view('order-confirmation', $orderData);
+        return view('cart.order-confirmation', $orderData);
     }
 }

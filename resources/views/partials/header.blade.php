@@ -130,7 +130,10 @@
                                 </div>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end">
-                                <li><a class="dropdown-item" href="{{ route('admin.products.index') }}"><i class="bi bi-gear me-2"></i>Quản trị</a></li>
+                                <li><a class="dropdown-item" href="{{ route('admin.products.index') }}"><i class="bi bi-box-seam me-2"></i>Quản lý Sản phẩm</a></li>
+                                <li><a class="dropdown-item" href="{{ route('admin.orders.index') }}"><i class="bi bi-receipt me-2"></i>Quản lý Đơn hàng</a></li>
+                                <li><a class="dropdown-item" href="{{ route('admin.news.index') }}"><i class="bi bi-newspaper me-2"></i>Quản lý Tin tức</a></li>
+                                <li><a class="dropdown-item" href="{{ route('admin.users.index') }}"><i class="bi bi-people me-2"></i>Quản lý Người dùng</a></li>
                                 <li><hr class="dropdown-divider"></li>
                                 <li>
                                     <form action="{{ route('logout') }}" method="POST" class="d-inline">
@@ -240,7 +243,20 @@
             @endguest
             
             @auth
-            <li><a class="mobile-menu-item" href="{{ route('admin.products.index') }}"><i class="bi bi-gear me-2"></i>Quản trị</a></li>
+            <li>
+                <a class="mobile-menu-item" data-bs-toggle="collapse" href="#adminCollapse">
+                    <i class="bi bi-gear me-2"></i>Quản trị
+                    <i class="bi bi-chevron-down ms-auto"></i>
+                </a>
+                <div class="collapse" id="adminCollapse">
+                    <ul class="list-unstyled ps-4">
+                        <li><a class="mobile-submenu-item" href="{{ route('admin.products.index') }}"><i class="bi bi-box-seam me-2"></i>Quản lý Sản phẩm</a></li>
+                        <li><a class="mobile-submenu-item" href="{{ route('admin.orders.index') }}"><i class="bi bi-receipt me-2"></i>Quản lý Đơn hàng</a></li>
+                        <li><a class="mobile-submenu-item" href="{{ route('admin.news.index') }}"><i class="bi bi-newspaper me-2"></i>Quản lý Tin tức</a></li>
+                        <li><a class="mobile-submenu-item" href="{{ route('admin.users.index') }}"><i class="bi bi-people me-2"></i>Quản lý Người dùng</a></li>
+                    </ul>
+                </div>
+            </li>
             <li>
                 <form action="{{ route('logout') }}" method="POST" class="m-0">
                     @csrf

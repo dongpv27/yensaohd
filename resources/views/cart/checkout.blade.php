@@ -128,15 +128,6 @@
                             </div>
                         </div>
 
-                        <!-- Shipping to Different Address -->
-                        <div class="mb-3">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="differentAddress">
-                                <label class="form-check-label" for="differentAddress">
-                                    Giao hàng đến một địa chỉ khác?
-                                </label>
-                            </div>
-                        </div>
 
                         <!-- Order Notes -->
                         <div class="mb-3">
@@ -241,13 +232,6 @@
                             @error('payment_method')
                                 <div class="invalid-feedback d-block">{{ $message }}</div>
                             @enderror
-                        </div>
-
-                        <div class="form-check mb-3 mt-4">
-                            <input class="form-check-input" type="checkbox" id="agreeTerms" required>
-                            <label class="form-check-label" for="agreeTerms">
-                                Tôi đã đọc và đồng ý với <a href="#">điều khoản và điều kiện</a> của website <span class="text-danger">*</span>
-                            </label>
                         </div>
 
                         <button type="submit" form="checkoutForm" class="btn-place-order">

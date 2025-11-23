@@ -1,4 +1,10 @@
 /* ==================== RESPONSIVE STYLES ==================== */
+/* Version: 2.0 - Mobile Fix */
+
+/* Base fixes - only prevent horizontal scroll */
+html, body {
+    overflow-x: hidden;
+}
 
 /* Mobile Menu Styles */
 .mobile-menu {
@@ -52,7 +58,51 @@
 
 /* ==================== TABLET & MOBILE ==================== */
 @media (max-width: 991px) {
+    /* Prevent horizontal scroll */
+    html, body {
+        overflow-x: hidden;
+        width: 100%;
+        position: relative;
+    }
+
+    /* Fix container widths */
+    .container {
+        max-width: 100%;
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    /* Fix all images on mobile */
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+
+    /* Fix cards on mobile */
+    .card {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .card-img-top {
+        width: 100%;
+        object-fit: cover;
+    }
+
     /* Header adjustments */
+    .header-main {
+        position: fixed !important;
+        top: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        z-index: 1030;
+    }
+
+    .header-topbar {
+        background-color: #3D3D3D !important;
+    }
+
     .header-logo {
         width: 60px !important;
         height: 60px !important;
@@ -65,23 +115,29 @@
         width: auto !important;
         margin: 0 !important;
         padding: 0 !important;
+        max-width: 70% !important;
     }
 
     .header-brand-text {
         display: flex !important;
         opacity: 1 !important;
         visibility: visible !important;
+        flex-direction: column;
     }
 
     .header-brand-name {
-        font-size: 1.5rem !important;
-        white-space: nowrap;
-        margin-top: 5px !important;
+        font-size: 0.9rem !important;
+        white-space: normal !important;
+        line-height: 1.2 !important;
+        margin-top: 0 !important;
+        word-break: break-word;
     }
 
     .header-topbar-container {
         min-height: 60px !important;
-        padding-right: 1rem !important;
+        padding-right: 0.5rem !important;
+        padding-left: 0.5rem !important;
+        gap: 0.5rem !important;
     }
 
     .header-icon {
@@ -90,6 +146,37 @@
 
     .header-top-right {
         padding-right: 0.5rem;
+        display: flex !important;
+        gap: 0.5rem !important;
+        flex-shrink: 0;
+    }
+
+    /* Fix cart dropdown width */
+    .header-cart-dropdown {
+        width: 90vw !important;
+        max-width: 400px;
+        left: auto !important;
+        right: 0 !important;
+    }
+
+    /* Fix search input */
+    .input-group {
+        width: 100%;
+    }
+
+    .form-control {
+        font-size: 14px;
+    }
+
+    /* Fix buttons */
+    .btn {
+        white-space: nowrap;
+    }
+
+    /* Fix specific flex containers that should wrap */
+    .product-row,
+    .mobile-menu {
+        flex-wrap: wrap;
     }
 
     /* Best Seller Section - 2 products per slide - Mobile */
@@ -97,14 +184,17 @@
         padding: 0 40px !important;
         position: relative;
         overflow: hidden !important;
+        width: 100%;
     }
 
     .best-seller-carousel .carousel-inner {
         overflow: hidden !important;
+        width: 100%;
     }
 
     .best-seller-carousel .carousel-item {
         overflow: hidden !important;
+        width: 100%;
     }
 
     .best-seller-carousel .carousel-item > div {
@@ -112,21 +202,25 @@
         justify-content: space-between !important;
         gap: 10px !important;
         padding: 0 5px !important;
+        width: 100%;
     }
 
     .best-seller-carousel .carousel-item > div > div {
         width: calc(50% - 5px) !important;
-        min-width: auto !important;
+        min-width: 0 !important;
+        max-width: calc(50% - 5px) !important;
         flex-shrink: 0 !important;
     }
 
     .best-seller-carousel .card {
         height: 100%;
         margin: 0 !important;
+        width: 100%;
     }
 
     .best-seller-carousel .card-img-top {
         height: 150px !important;
+        width: 100%;
         object-fit: cover;
     }
 
@@ -139,6 +233,11 @@
         line-height: 1.2 !important;
         height: 2.4rem !important;
         margin-bottom: 0.5rem !important;
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        line-clamp: 2;
+        -webkit-box-orient: vertical;
     }
 
     .best-seller-carousel .text-muted {
@@ -157,7 +256,22 @@
     /* Carousel controls inside slide area */
     .best-seller-carousel .carousel-control-prev,
     .best-seller-carousel .carousel-control-next {
-        display: none !important;
+        width: 35px !important;
+        height: 35px !important;
+        opacity: 0.8 !important;
+    }
+
+    .best-seller-carousel .carousel-control-prev {
+        left: 5px !important;
+    }
+
+    .best-seller-carousel .carousel-control-next {
+        right: 5px !important;
+    }
+
+    .carousel-control-icon {
+        width: 35px !important;
+        height: 35px !important;
     }
 
     .best-seller-carousel .carousel-indicators {
@@ -179,16 +293,32 @@
         display: grid;
         grid-template-columns: repeat(2, 1fr);
         gap: 15px;
+        width: 100%;
     }
 
     .product-col {
         width: 100%;
+        min-width: 0;
     }
 
     .product-block-card {
         height: 100%;
         display: flex;
         flex-direction: column;
+        width: 100%;
+    }
+
+    .product-block-image-wrapper {
+        height: 180px !important;
+        width: 100%;
+    }
+
+    .product-block-image,
+    .product-block-card img {
+        width: 100%;
+        height: 100% !important;
+        max-width: 100%;
+        object-fit: cover;
     }
 
     .product-block-body {
@@ -578,6 +708,7 @@
 /* Offcanvas menu styling */
 .offcanvas {
     background-color: #fff;
+    max-width: 85vw !important;
 }
 
 .offcanvas-title {
@@ -585,18 +716,35 @@
     color: #333;
 }
 
+.offcanvas-body {
+    padding: 0;
+}
+
 /* Ensure proper padding for mobile content */
 @media (max-width: 991px) {
     body {
-        padding-top: 60px;
+        padding-top: 70px !important;
     }
 
     .container {
-        padding-left: 10px;
-        padding-right: 10px;
+        padding-left: 15px;
+        padding-right: 15px;
+        max-width: 100%;
     }
 
     section {
         margin-bottom: 2rem !important;
+        overflow: hidden;
+    }
+
+    /* Fix row overflow */
+    .row {
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .row > * {
+        padding-left: calc(var(--bs-gutter-x) * 0.5);
+        padding-right: calc(var(--bs-gutter-x) * 0.5);
     }
 }

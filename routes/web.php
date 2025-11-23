@@ -6,6 +6,8 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\Admin\ProductController as AdminProductController;
 use App\Http\Controllers\Admin\OrderController as AdminOrderController;
+use App\Http\Controllers\Admin\NewsController as AdminNewsController;
+use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\VNPayController;
 
@@ -19,6 +21,30 @@ Route::get('/promotions', [ProductController::class, 'promotions']);
 // News
 Route::get('/news', [NewsController::class, 'index']);
 Route::get('/news/{slug}', [NewsController::class, 'show']);
+
+// Contact
+Route::get('/contact', function () {
+    return view('pages.contact');
+});
+Route::post('/contact/send', function (Illuminate\Http\Request $request) {
+    // Validate the form
+    $validated = $request->validate([
+        'name' => 'required|string|max:255',
+        'phone' => 'required|string|max:20',
+        'email' => 'nullable|email',
+        'subject' => 'required|string|max:255',
+        'message' => 'required|string',
+    ]);
+    
+    // Here you can send email or save to database
+    // For now, just redirect back with success message
+    return redirect()->back()->with('success', 'Cảm ơn bạn đã liên hệ! Chúng tôi sẽ phản hồi sớm nhất.');
+});
+
+// About
+Route::get('/about', function () {
+    return view('pages.about');
+});
 
 // Cart
 Route::get('/cart', [CartController::class, 'index']);
@@ -38,6 +64,8 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     Route::resource('products', AdminProductController::class);
     Route::resource('orders', AdminOrderController::class)->only(['index', 'show', 'destroy']);
     Route::post('orders/{order}/status', [AdminOrderController::class, 'updateStatus'])->name('orders.updateStatus');
+    Route::resource('news', AdminNewsController::class);
+    Route::resource('users', AdminUserController::class);
 });
 
 // Simple auth routes (login/logout) used by middleware
