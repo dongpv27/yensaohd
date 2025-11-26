@@ -217,12 +217,12 @@
                                     </label>
                                 </div>
 
-                                <!-- VNPay -->
+                                <!-- MoMo -->
                                 <div class="form-check mb-2">
-                                    <input class="form-check-input @error('online_method') is-invalid @enderror" type="radio" name="online_method" id="vnpayPayment" value="vnpay" {{ old('online_method') == 'vnpay' ? 'checked' : '' }} form="checkoutForm">
-                                    <label class="form-check-label" for="vnpayPayment">
-                                        <img src="https://vnpay.vn/s1/statics.vnpay.vn/2023/9/06ncktiwd6dc1694418196384.png" alt="VNPay" style="height: 20px;" class="me-2">
-                                        Ví VNPay
+                                    <input class="form-check-input @error('online_method') is-invalid @enderror" type="radio" name="online_method" id="momoPayment" value="vnpay" {{ old('online_method') == 'vnpay' ? 'checked' : '' }} form="checkoutForm">
+                                    <label class="form-check-label d-flex align-items-center" for="momoPayment">
+                                        <img src="{{ asset('images/logo/momo.png') }}" alt="MoMo" style="height: 20px;" class="me-2">
+                                        <span style="color: #A50064; font-weight: 600;">MoMo</span>
                                     </label>
                                 </div>
                                 @error('online_method')

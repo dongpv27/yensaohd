@@ -121,7 +121,7 @@ class VNPayController extends Controller
                 // Store order info in session for confirmation page
                 session()->put('order_confirmation', [
                     'order' => $order,
-                    'payment_method_name' => 'Ví VNPay',
+                    'payment_method_name' => 'Ví MoMo',
                     'payment_method' => 'vnpay',
                     'online_method' => 'vnpay',
                     'transaction_id' => $vnpTranId,

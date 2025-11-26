@@ -42,7 +42,7 @@
 
         <div class="row">
             <!-- Order Info -->
-            <div class="col-lg-8">
+            <div class="col-lg-7 order-2 order-lg-1">
                 <div class="order-info-card">
                     <h4 class="card-title mb-4">
                         <i class="bi bi-receipt text-primary me-2"></i>
@@ -130,7 +130,7 @@
             </div>
 
             <!-- Payment Info -->
-            <div class="col-lg-4">
+            <div class="col-lg-5 order-1 order-lg-2">
                 <div class="payment-info-card">
                     <h5 class="card-title mb-4">
                         <i class="bi bi-credit-card text-warning me-2"></i>
@@ -155,22 +155,20 @@
                             </h6>
                             
                             @if($online_method === 'bank')
-                            <div class="row">
-                                <div class="col-md-7">
-                                    <p class="mb-2"><strong>Thông tin chuyển khoản:</strong></p>
-                                    <p class="mb-1">Ngân hàng: <strong>Vietcombank (VCB)</strong></p>
-                                    <p class="mb-1">Số TK: <strong>1234567890</strong></p>
-                                    <p class="mb-1">Chủ TK: <strong>CONG TY YEN SAO HOANG DANG</strong></p>
-                                    <p class="mb-1">Số tiền: <strong class="text-danger">{{ number_format($order->total, 0, ',', '.') }}₫</strong></p>
-                                    <p class="mb-0">Nội dung: <strong>{{ $order->order_number }}</strong></p>
-                                </div>
-                                <div class="col-md-5 text-center">
-                                    <img src="https://img.vietqr.io/image/VCB-1234567890-compact2.png?amount={{ $order->total }}&addInfo={{ $order->order_number }}&accountName=CONG TY YEN SAO HOANG DANG" 
-                                         alt="QR Code" 
-                                         class="img-fluid" 
-                                         style="max-width: 200px; border: 2px solid #17a2b8; border-radius: 8px; padding: 10px; background: white;">
-                                    <p class="mt-2 mb-0"><small>Quét mã để thanh toán</small></p>
-                                </div>
+                            <div class="text-center mb-3">
+                                <img src="https://img.vietqr.io/image/VCB-1234567890-compact2.png?amount={{ $order->total }}&addInfo={{ $order->order_number }}&accountName=CONG TY YEN SAO HOANG DANG" 
+                                     alt="QR Code" 
+                                     class="img-fluid mx-auto d-block" 
+                                     style="max-width: 250px; border: 2px solid #17a2b8; border-radius: 8px; padding: 10px; background: white;">
+                                <p class="mt-2 mb-0"><small>Quét mã để thanh toán</small></p>
+                            </div>
+                            <div>
+                                <p class="mb-2"><strong>Thông tin chuyển khoản:</strong></p>
+                                <p class="mb-1">Ngân hàng: <strong>Vietcombank (VCB)</strong></p>
+                                <p class="mb-1">Số TK: <strong>1234567890</strong></p>
+                                <p class="mb-1">Chủ TK: <strong>CONG TY YEN SAO HOANG DANG</strong></p>
+                                <p class="mb-1">Số tiền: <strong class="text-danger">{{ number_format($order->total, 0, ',', '.') }}₫</strong></p>
+                                <p class="mb-0">Nội dung: <strong>{{ $order->order_number }}</strong></p>
                             </div>
                             
                             @elseif($online_method === 'vnpay')

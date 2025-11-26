@@ -80,7 +80,10 @@
                             </span>
                         </div>
                         @endif
-                        <form action="{{ url('/cart/add/' . $product->id) }}" method="POST" class="add-to-cart-form d-inline" data-product-name="{{ $product->name }}">
+                        <form action="{{ url('/cart/add/' . $product->id) }}" method="POST" class="add-to-cart-form d-inline" 
+                              data-product-name="{{ $product->name }}"
+                              data-product-image="{{ $product->image ? asset('storage/'.$product->image) : asset('images/products/product-1.jpg') }}"
+                              data-product-price="{{ number_format($product->display_price ?? $product->price, 0, ',', '.') }}">
                             @csrf
                             <input type="hidden" name="quantity" value="1">
                             <button type="submit" class="product-block-cart-icon">
@@ -218,87 +221,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             
             window.location.href = url.toString();
-        });
-    }
-
-    // Handle add to cart forms with AJAX
-    const cartForms = document.querySelectorAll('.add-to-cart-form');
-    
-    cartForms.forEach(form => {
-        form.addEventListener('submit', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            
-            const formData = new FormData(this);
-            const productName = this.dataset.productName;
-            
-            fetch(this.action, {
-                method: 'POST',
-                body: formData,
-                headers: {
-                    'X-Requested-With': 'XMLHttpRequest'
-                }
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    // Show toast notification
-                    showToast('success', data.message || 'Đã thêm "' + productName + '" vào giỏ hàng');
-                    
-                    // Update cart count badge
-                    const cartBadge = document.getElementById('cart-count-badge');
-                    if (cartBadge) {
-                        cartBadge.textContent = data.cart_count;
-                        if (data.cart_count > 0) {
-                            cartBadge.classList.remove('d-none');
-                        }
-                    }
-                    
-                    // Update cart dropdown HTML
-                    const cartDropdown = document.getElementById('cart-dropdown');
-                    if (cartDropdown && data.cart_html) {
-                        cartDropdown.innerHTML = data.cart_html;
-                    }
-                } else {
-                    showToast('error', data.message || 'Có lỗi xảy ra');
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                showToast('error', 'Không thể thêm vào giỏ hàng');
-            });
-        });
-    });
-    
-    // Toast notification function
-    function showToast(type, message) {
-        const toastContainer = document.querySelector('.toast-container');
-        if (!toastContainer) return;
-        
-        const toastId = 'toast-' + Date.now();
-        const bgClass = type === 'success' ? 'bg-success' : 'bg-danger';
-        const icon = type === 'success' ? 'bi-check-circle' : 'bi-x-circle';
-        
-        const toastHtml = `
-            <div id="${toastId}" class="toast align-items-center text-white ${bgClass} border-0" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="true" data-bs-delay="3000">
-                <div class="d-flex">
-                    <div class="toast-body">
-                        <i class="bi ${icon} me-2"></i>${message}
-                    </div>
-                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-                </div>
-            </div>
-        `;
-        
-        toastContainer.insertAdjacentHTML('beforeend', toastHtml);
-        
-        const toastElement = document.getElementById(toastId);
-        const toast = new bootstrap.Toast(toastElement);
-        toast.show();
-        
-        // Remove toast after it's hidden
-        toastElement.addEventListener('hidden.bs.toast', function() {
-            this.remove();
         });
     }
 });
