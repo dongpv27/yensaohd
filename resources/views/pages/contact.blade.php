@@ -95,7 +95,7 @@
                                              style="object-fit: cover; cursor: pointer;"
                                              alt="{{ $product->name }}"
                                              onclick="window.location.href='{{ url('/products/' . $product->id) }}'">
-                                        @if($product->has_sale)
+                                        @if($product->is_best_seller)
                                         <span class="position-absolute top-0 start-0 m-3 badge bg-danger">-{{ $product->discount_percent }}%</span>
                                         @endif
                                         @if($product->weight)
@@ -110,7 +110,7 @@
                                         </h5>
                                         <div class="d-flex justify-content-between align-items-center">
                                             <div>
-                                                @if($product->has_sale)
+                                                @if($product->is_best_seller)
                                                 <div>
                                                     <span class="text-muted text-decoration-line-through d-block" style="font-size: 0.9rem;">
                                                         {{ number_format($product->original_price ?? $product->price) }}₫

@@ -3,6 +3,7 @@
 @import './header.css';
 @import './product.css';
 @import './news.css';
+@import './utilities.css';
 
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';

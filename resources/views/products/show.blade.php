@@ -20,7 +20,7 @@
         <div class="col-md-5">
             <div class="product-gallery">
                 <div class="product-main-image">
-                    @if($product->has_sale)
+                    @if($product->is_best_seller)
                         <div class="discount-badge">-{{ $product->discount_percent }}%</div>
                     @endif
                     <img src="{{ $product->image ?? asset('images/banners/logo.png') }}" alt="{{ $product->name }}" id="mainImage">
@@ -63,11 +63,11 @@
 
                 <!-- Price -->
                 <div class="product-price">
-                    @if($product->has_sale)
+                    @if($product->is_best_seller)
                         <span class="price-original">{{ number_format($product->original_price ?? $product->price, 0, ',', '.') }}₫</span>
                     @endif
                     <span class="price-sale">{{ number_format($product->display_price, 0, ',', '.') }}₫</span>
-                    @if($product->has_sale)
+                    @if($product->is_best_seller)
                         <span class="price-discount-badge">Giảm {{ $product->discount_percent }}%</span>
                     @endif
                 </div>
@@ -202,7 +202,7 @@
                         <img src="{{ $relatedProduct->image ? asset('storage/'.$relatedProduct->image) : asset('images/products/product-1.jpg') }}" 
                              class="product-block-image" alt="{{ $relatedProduct->name }}"
                              onclick="window.location.href='{{ url('/products/' . $relatedProduct->id) }}'">
-                        @if($relatedProduct->has_sale)
+                        @if($relatedProduct->is_best_seller)
                         <div class="product-block-discount" onclick="window.location.href='{{ url('/products/' . $relatedProduct->id) }}'">-{{ $relatedProduct->discount_percent }}%</div>
                         @endif
                         @if($relatedProduct->weight)
@@ -223,7 +223,7 @@
                     <div class="product-block-body" style="cursor: pointer;">
                         <h5 class="product-block-title" onclick="window.location.href='{{ url('/products/' . $relatedProduct->id) }}'">{{ $relatedProduct->name }}</h5>
                         <div class="product-block-price-section text-end" onclick="window.location.href='{{ url('/products/' . $relatedProduct->id) }}'">
-                            @if($relatedProduct->has_sale)
+                            @if($relatedProduct->is_best_seller)
                             <div>
                                 <span class="product-block-price-old">{{ number_format($relatedProduct->original_price ?? $relatedProduct->price) }}₫</span>
                                 <span class="product-block-price-new">{{ number_format($relatedProduct->display_price) }}₫</span>

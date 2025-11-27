@@ -14,10 +14,13 @@ export default defineConfig({
                 'resources/css/checkout.css',
                 'resources/css/cart.css',
                 'resources/css/responsive.css',
+                'resources/css/utilities.css',
+                'resources/css/news.css',
                 'resources/js/app.js',
                 'resources/js/bootstrap.js',
                 'resources/js/header.js',
                 'resources/js/footer.js'
+
             ],
             refresh: true,
         }),

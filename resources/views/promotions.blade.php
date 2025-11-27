@@ -39,7 +39,7 @@
                         <img src="{{ $product->image ? asset('storage/'.$product->image) : asset('images/products/product-1.jpg') }}" 
                              class="product-block-image" alt="{{ $product->name }}"
                              onclick="window.location.href='{{ url('/products/' . $product->id) }}'">
-                        @if($product->has_sale)
+                        @if($product->is_best_seller)
                         <div class="product-block-discount" onclick="window.location.href='{{ url('/products/' . $product->id) }}'">
                             -{{ $product->discount_percent }}%
                         </div>
@@ -65,7 +65,7 @@
                             {{ $product->name }}
                         </h5>
                         <div class="product-block-price-section text-end" onclick="window.location.href='{{ url('/products/' . $product->id) }}'">
-                            @if($product->has_sale)
+                            @if($product->is_best_seller)
                             <div>
                                 <span class="product-block-price-old">{{ number_format($product->original_price ?? $product->price) }}₫</span>
                                 <span class="product-block-price-new text-danger">{{ number_format($product->display_price) }}₫</span>
@@ -135,6 +135,98 @@
         </div>
     </div>
     @endif
+
+    <!-- News Section -->
+    <div class="row mt-5">
+        <div class="col-12">
+            <div class="text-center mb-4">
+                <h2 class="fw-bold d-inline-block mb-0" style="border-bottom: 3px solid #dc3545; padding-bottom: 0.5rem; color: #936f03;">
+                    <i class="bi bi-newspaper me-2"></i>Tin Tức Nổi Bật
+                </h2>
+            </div>
+            @php
+                $latestNews = App\Models\News::orderBy('created_at', 'desc')->take(4)->get();
+            @endphp
+            @if($latestNews->count() > 0)
+            <div class="row g-4">
+                <!-- Featured News (Large) -->
+                <div class="col-md-7">
+                    @if($latestNews->first())
+                    @php $featuredNews = $latestNews->first(); @endphp
+                    <a href="{{ url('/news/' . $featuredNews->slug) }}" class="text-decoration-none">
+                        <div class="card h-100 shadow-sm border-0 news-card" style="border-radius: 12px; overflow: hidden;">
+                            <div style="position: relative; overflow: hidden; height: 400px;">
+                                <img src="{{ $featuredNews->image ? asset('storage/'.$featuredNews->image) : asset('images/banners/logo.png') }}" 
+                                     class="card-img-top" 
+                                     style="height: 100%; width: 100%; object-fit: cover; transition: transform 0.3s ease;"
+                                     alt="{{ $featuredNews->title }}">
+                            </div>
+                            <div class="card-body" style="padding: 1.5rem;">
+                                <h4 class="card-title" style="font-size: 1.4rem; font-weight: 600; line-height: 1.4; margin-bottom: 1rem; color: #333;">
+                                    {{ $featuredNews->title }}
+                                </h4>
+                                <p class="card-text text-muted" style="font-size: 0.95rem; line-height: 1.6;">
+                                    {{ $featuredNews->excerpt ?? Str::limit(strip_tags($featuredNews->content), 150) }}
+                                </p>
+                                <div class="d-flex justify-content-between align-items-center mt-3">
+                                    <small class="text-muted">
+                                        <i class="bi bi-calendar3 me-1"></i>{{ $featuredNews->created_at->format('d/m/Y') }}
+                                    </small>
+                                    <span class="text-danger fw-bold" style="font-size: 0.9rem;">
+                                        Đọc tiếp <i class="bi bi-arrow-right"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                    @endif
+                </div>
+
+                <!-- Small News List (Right) -->
+                <div class="col-md-5">
+                    <div class="d-flex flex-column" style="gap: 1rem;">
+                        @foreach($latestNews->skip(1)->take(3) as $news)
+                        <a href="{{ url('/news/' . $news->slug) }}" class="text-decoration-none">
+                            <div class="card shadow-sm border-0 news-card" style="border-radius: 10px; overflow: hidden;">
+                                <div class="row g-0">
+                                    <div class="col-5">
+                                        <div style="height: 120px; overflow: hidden;">
+                                            <img src="{{ $news->image ? asset('storage/'.$news->image) : asset('images/banners/logo.png') }}" 
+                                                 style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease;"
+                                                 alt="{{ $news->title }}">
+                                        </div>
+                                    </div>
+                                    <div class="col-7">
+                                        <div class="card-body" style="padding: 1rem;">
+                                            <h6 class="card-title mb-2" style="font-size: 0.95rem; line-height: 1.4; height: 4.2rem; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; color: #333; font-weight: 600;">
+                                                {{ $news->title }}
+                                            </h6>
+                                            <small class="text-muted" style="font-size: 0.8rem;">
+                                                <i class="bi bi-calendar3 me-1"></i>{{ $news->created_at->format('d/m/Y') }}
+                                            </small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                        @endforeach
+                    </div>
+                    <div class="text-center mt-4">
+                        <a href="{{ url('/news') }}" class="btn btn-outline-danger btn-lg" style="text-transform: uppercase; font-weight: 600; border-width: 2px; padding: 0.6rem 2rem;">
+                            XEM THÊM
+                        </a>
+                    </div>
+                </div>
+            </div>
+            @else
+            <div class="row">
+                <div class="col-12 text-center py-5">
+                    <p class="text-muted">Chưa có tin tức nào.</p>
+                </div>
+            </div>
+            @endif
+        </div>
+    </div>
 </div>
 
 <script>

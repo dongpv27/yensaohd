@@ -37,11 +37,11 @@
         <div class="container">
             <div id="bestSellerCarousel" class="carousel slide position-relative best-seller-carousel" data-bs-ride="carousel" data-bs-interval="4000" style="padding: 0 50px;">
                 <!-- Carousel Indicators -->
-                <div class="carousel-indicators">
+                <!-- <div class="carousel-indicators">
                     @foreach($bestSellers->chunk(4) as $index => $chunk)
                     <button type="button" data-bs-target="#bestSellerCarousel" data-bs-slide-to="{{ $index }}" class="{{ $index == 0 ? 'active' : '' }}" aria-current="{{ $index == 0 ? 'true' : 'false' }}"></button>
                     @endforeach
-                </div>
+                </div> -->
 
                 <div class="carousel-inner">
                     @foreach($bestSellers->chunk(4) as $index => $chunk)
@@ -56,7 +56,7 @@
                                                  class="card-img-top" 
                                                  style="height: 200px; object-fit: cover;"
                                                  alt="{{ $product->name }}">
-                                            @if($product->has_sale)
+                                            @if($product->is_best_seller)
                                             <div style="position: absolute; top: 8px; right: 8px; background-color: #dc3545; color: white; padding: 4px 8px; border-radius: 5px; font-weight: bold; font-size: 0.75rem; z-index: 5;">
                                                 -{{ $product->discount_percent }}%
                                             </div>
@@ -72,15 +72,24 @@
                                         <div class="card-body p-3">
                                             <h6 class="card-title mb-2" style="font-size: 0.9rem; line-height: 1.3; height: 2.6rem; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">{{ $product->name }}</h6>
                                             <div class="text-end">
-                                                @if($product->has_sale)
-                                                <small class="text-muted text-decoration-line-through d-block" style="font-size: 0.75rem;">{{ number_format($product->original_price ?? $product->price) }}₫</small>
-                                                <p class="text-danger fw-bold mb-0" style="font-size: 0.95rem;">{{ number_format($product->sale_price) }}₫</p>
+                                                @if($product->is_best_seller)
+                                                <div class="mb-1">
+                                                    <small class="text-muted text-decoration-line-through me-2" style="font-size: 0.75rem;">{{ number_format($product->original_price ?? $product->price) }}₫</small>
+                                                    <span class="text-danger fw-bold" style="font-size: 0.95rem;">{{ number_format($product->sale_price) }}₫</span>
+                                                </div>
                                                 @else
-                                                <p class="text-dark fw-bold mb-0" style="font-size: 0.95rem;">{{ number_format($product->price) }}₫</p>
+                                                <p class="text-dark fw-bold mb-1" style="font-size: 0.95rem;">{{ number_format($product->price) }}₫</p>
                                                 @endif
-                                            </div>
-                                            <div class="text-end mt-2">
-                                                <small class="text-muted fst-italic" style="font-size: 0.75rem;">Đã bán: {{ $product->sold_count }}</small>
+                                                <div class="mb-1">
+                                                    @if($product->quantity > 0)
+                                                        <small class="badge bg-success" style="font-size: 0.7rem;">Còn {{ $product->quantity }} sản phẩm</small>
+                                                    @else
+                                                        <small class="badge bg-danger" style="font-size: 0.7rem;">Hết hàng</small>
+                                                    @endif
+                                                </div>
+                                                <div>
+                                                    <small class="text-muted fst-italic" style="font-size: 0.7rem; font-weight: bold;">Đã bán: {{ $product->sold_count }}</small>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -180,7 +189,7 @@
                             <img src="{{ $product->image ? asset('storage/'.$product->image) : asset('images/products/product-1.jpg') }}" 
                                  class="product-block-image" alt="{{ $product->name }}"
                                  onclick="window.location.href='{{ url('/products/' . $product->id) }}'">
-                            @if($product->has_sale)
+                            @if($product->is_best_seller)
                             <div class="product-block-discount" onclick="window.location.href='{{ url('/products/' . $product->id) }}'">-{{ $product->discount_percent }}%</div>
                             @endif
                             @if($product->weight)
@@ -204,7 +213,7 @@
                         <div class="product-block-body" style="cursor: pointer;">
                             <h5 class="product-block-title" onclick="window.location.href='{{ url('/products/' . $product->id) }}'">{{ $product->name }}</h5>
                             <div class="product-block-price-section text-end" onclick="window.location.href='{{ url('/products/' . $product->id) }}'">
-                                @if($product->has_sale)
+                                @if($product->is_best_seller)
                                 <div>
                                     <span class="product-block-price-old">{{ number_format($product->original_price ?? $product->price) }}₫</span>
                                     <span class="product-block-price-new">{{ number_format($product->display_price) }}₫</span>
@@ -250,7 +259,7 @@
                             <img src="{{ $product->image ? asset('storage/'.$product->image) : asset('images/products/product-1.jpg') }}" 
                                  class="product-block-image" alt="{{ $product->name }}"
                                  onclick="window.location.href='{{ url('/products/' . $product->id) }}'">
-                            @if($product->has_sale)
+                            @if($product->is_best_seller)
                             <div class="product-block-discount" onclick="window.location.href='{{ url('/products/' . $product->id) }}'">-{{ $product->discount_percent }}%</div>
                             @endif
                             @if($product->weight)
@@ -274,7 +283,7 @@
                         <div class="product-block-body" style="cursor: pointer;">
                             <h5 class="product-block-title" onclick="window.location.href='{{ url('/products/' . $product->id) }}'">{{ $product->name }}</h5>
                             <div class="product-block-price-section text-end" onclick="window.location.href='{{ url('/products/' . $product->id) }}'">
-                                @if($product->has_sale)
+                                @if($product->is_best_seller)
                                 <div>
                                     <span class="product-block-price-old">{{ number_format($product->original_price ?? $product->price) }}₫</span>
                                     <span class="product-block-price-new">{{ number_format($product->display_price) }}₫</span>
@@ -320,7 +329,7 @@
                             <img src="{{ $product->image ? asset('storage/'.$product->image) : asset('images/products/product-1.jpg') }}" 
                                  class="product-block-image" alt="{{ $product->name }}"
                                  onclick="window.location.href='{{ url('/products/' . $product->id) }}'">
-                            @if($product->has_sale)
+                            @if($product->is_best_seller)
                             <div class="product-block-discount" onclick="window.location.href='{{ url('/products/' . $product->id) }}'">-{{ $product->discount_percent }}%</div>
                             @endif
                             @if($product->weight)
@@ -344,7 +353,7 @@
                         <div class="product-block-body" style="cursor: pointer;">
                             <h5 class="product-block-title" onclick="window.location.href='{{ url('/products/' . $product->id) }}'">{{ $product->name }}</h5>
                             <div class="product-block-price-section text-end" onclick="window.location.href='{{ url('/products/' . $product->id) }}'">
-                                @if($product->has_sale)
+                                @if($product->is_best_seller)
                                 <div>
                                     <span class="product-block-price-old">{{ number_format($product->original_price ?? $product->price) }}₫</span>
                                     <span class="product-block-price-new">{{ number_format($product->display_price) }}₫</span>

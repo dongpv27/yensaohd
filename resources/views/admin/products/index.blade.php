@@ -56,7 +56,7 @@
                                     @endif
                                 </td>
                                 <td>
-                                    @if($product->has_sale)
+                                    @if($product->is_best_seller)
                                         <div>
                                             <del class="text-muted small">{{ number_format($product->original_price ?? $product->price,0,',','.') }}₫</del>
                                             <br><strong class="text-danger">{{ number_format($product->display_price,0,',','.') }}₫</strong>

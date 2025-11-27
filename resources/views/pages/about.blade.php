@@ -10,20 +10,20 @@
                     <h1 class="fw-bold mb-4" style="font-size: 2.8rem;">VỀ CHÚNG TÔI</h1>
                     <p class="lead mb-4" style="font-size: 1.2rem;">
                         Yến Sào Hoàng Đăng - Hành trình mang đến sản phẩm yến sào thiên nhiên cao cấp, 
-                        uy tín và chất lượng hàng đầu tại Việt Nam
+                        uy tín và chất lượng.
                     </p>
                     <div class="d-flex align-items-center gap-4 mt-4">
                         <div class="text-center">
-                            <div class="fw-bold" style="font-size: 2.5rem;">15+</div>
-                            <div style="font-size: 0.95rem;">Năm kinh nghiệm</div>
-                        </div>
-                        <div class="text-center">
-                            <div class="fw-bold" style="font-size: 2.5rem;">10K+</div>
-                            <div style="font-size: 0.95rem;">Khách hàng tin tưởng</div>
+                            <div class="fw-bold" style="font-size: 2.5rem;">100%</div>
+                            <div style="font-size: 0.95rem;">Yến thiên nhiên</div>
                         </div>
                         <div class="text-center">
                             <div class="fw-bold" style="font-size: 2.5rem;">100%</div>
-                            <div style="font-size: 0.95rem;">Yến thiên nhiên</div>
+                            <div style="font-size: 0.95rem;">Không chất bảo quản</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="fw-bold" style="font-size: 2.5rem;">100%</div>
+                            <div style="font-size: 0.95rem;">Sử dụng an toàn</div>
                         </div>
                     </div>
                 </div>
@@ -49,12 +49,11 @@
                                 <h3 class="mb-0 fw-bold" style="color: #936f03;">Câu Chuyện Của Chúng Tôi</h3>
                             </div>
                             <p class="text-muted mb-3" style="line-height: 1.8;">
-                                Được thành lập từ năm 2010, <strong>Yến Sào Hoàng Đăng</strong> khởi nguồn từ niềm đam mê và tâm huyết 
-                                với sản phẩm yến sào thiên nhiên cao cấp. Chúng tôi tự hào là một trong những đơn vị tiên phong 
-                                trong việc cung cấp yến sào nguyên chất, không pha trộn, đạt chuẩn chất lượng quốc tế.
+                                <strong>Yến Sào Hoàng Đăng</strong> khởi nguồn từ niềm đam mê và tâm huyết 
+                                với sản phẩm yến sào thiên nhiên cao cấp. Chúng tôi tự hào là một trong những đơn vị trong việc cung cấp yến sào nguyên chất, không pha trộn, đạt tiêu chuẩn chất lượng.
                             </p>
                             <p class="text-muted mb-0" style="line-height: 1.8;">
-                                Với hơn 15 năm kinh nghiệm trong ngành, chúng tôi đã xây dựng được mối quan hệ bền vững 
+                                Với nhiều năm kinh nghiệm, chúng tôi đã xây dựng được mối quan hệ bền vững 
                                 với các nhà cung cấp yến sào uy tín tại các vùng nguyên liệu nổi tiếng như Indonesia, Malaysia và Việt Nam.
                             </p>
                         </div>
@@ -85,7 +84,7 @@
                                     <i class="bi bi-eye-fill me-2"></i>Tầm Nhìn
                                 </h5>
                                 <p class="text-muted mb-0" style="line-height: 1.8;">
-                                    Trở thành thương hiệu yến sào hàng đầu Việt Nam, được khách hàng tin tưởng 
+                                    Trở thành thương hiệu yến sào uy tín, được khách hàng tin tưởng 
                                     và lựa chọn bởi chất lượng vượt trội và dịch vụ hoàn hảo.
                                 </p>
                             </div>
@@ -103,7 +102,7 @@
                 <h2 class="fw-bold mb-3" style="color: #936f03;">
                     <i class="bi bi-gem me-2"></i>GIÁ TRỊ CỐT LÕII
                 </h2>
-                <p class="text-muted">Những giá trị làm nên thương hiệu Yến Sào Hoàng Đăng</p>
+                <p class="text-muted">Những giá trị làm nên thương hiệu <strong>Yến Sào Hoàng Đăng</strong></p>
             </div>
 
             <div class="row g-4">
@@ -189,7 +188,7 @@
                                              style="object-fit: cover; cursor: pointer;"
                                              alt="{{ $product->name }}"
                                              onclick="window.location.href='{{ url('/products/' . $product->id) }}'">
-                                        @if($product->has_sale)
+                                        @if($product->is_best_seller)
                                         <span class="position-absolute top-0 start-0 m-3 badge bg-danger">-{{ $product->discount_percent }}%</span>
                                         @endif
                                         @if($product->weight)
@@ -204,7 +203,7 @@
                                         </h5>
                                         <div class="d-flex justify-content-between align-items-center">
                                             <div>
-                                                @if($product->has_sale)
+                                                @if($product->is_best_seller)
                                                 <div>
                                                     <span class="text-muted text-decoration-line-through d-block" style="font-size: 0.9rem;">
                                                         {{ number_format($product->original_price ?? $product->price) }}₫
