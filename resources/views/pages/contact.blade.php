@@ -8,9 +8,9 @@
             <div class="row align-items-center">
                 <div class="col-lg-6 text-white mb-4 mb-lg-0">
                     <div class="d-flex align-items-center mb-4">
-                        <img src="{{ asset('images/banners/logo.png') }}" alt="Yến Sào Hoàng Đăng" width="100" height="100" class="me-3">
+                        <img src="{{ asset('images/banners/logo.png') }}" alt="{{ config('shop.name') }}" width="100" height="100" class="me-3">
                         <div style="text-align: center;">
-                            <h1 class="fw-bold mb-2" style="font-size: 2.5rem;">YẾN SÀO HOÀNG ĐĂNG</h1>
+                            <h1 class="fw-bold mb-2" style="font-size: 2.5rem;">{{ strtoupper(config('shop.name')) }}</h1>
                             <p class="mb-0" style="font-size: 1.1rem;">Chất lượng vàng - Sức khỏe bền vững</p>
                         </div>
                     </div>
@@ -26,7 +26,7 @@
                                     </div>
                                     <div>
                                         <h6 class="mb-1 text-muted">Hotline</h6>
-                                        <a href="tel:0900000000" class="text-dark fw-bold fs-5 text-decoration-none">0900 000 000</a>
+                                        <a href="tel:{{ str_replace(' ', '', config('shop.phone')) }}" class="text-dark fw-bold fs-5 text-decoration-none">{{ config('shop.phone') }}</a>
                                     </div>
                                 </div>
                                 <div class="d-flex align-items-center mb-3">
@@ -35,7 +35,7 @@
                                     </div>
                                     <div>
                                         <h6 class="mb-1 text-muted">Zalo</h6>
-                                        <a href="https://zalo.me/0900000000" target="_blank" class="text-dark fw-bold fs-5 text-decoration-none">0900 000 000</a>
+                                        <a href="{{ config('shop.social.zalo') }}" target="_blank" class="text-dark fw-bold fs-5 text-decoration-none">{{ config('shop.phone') }}</a>
                                     </div>
                                 </div>
                                 <div class="d-flex align-items-center mb-3">
@@ -44,7 +44,7 @@
                                     </div>
                                     <div>
                                         <h6 class="mb-1 text-muted">Facebook</h6>
-                                        <a href="https://facebook.com/yensaohoangdang" target="_blank" class="text-dark fw-bold text-decoration-none">Yến Sào Hoàng Đăng</a>
+                                        <a href="{{ config('shop.social.facebook') }}" target="_blank" class="text-dark fw-bold text-decoration-none">{{ config('shop.name') }}</a>
                                     </div>
                                 </div>
                                 <div class="d-flex align-items-center">
@@ -53,7 +53,7 @@
                                     </div>
                                     <div>
                                         <h6 class="mb-1 text-muted">Email</h6>
-                                        <a href="mailto:contact@yensaohoangdang.com" class="text-dark fw-bold text-decoration-none">contact@yensaohoangdang.com</a>
+                                        <a href="mailto:{{ config('shop.email') }}" class="text-dark fw-bold text-decoration-none">{{ config('shop.email') }}</a>
                                     </div>
                                 </div>
                             </div>

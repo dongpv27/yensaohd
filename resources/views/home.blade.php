@@ -119,7 +119,7 @@
                         <div class="text-center mb-4">
                             <img src="{{ asset('images/banners/trang-tri-yen-sao.png') }}" alt="Trang trí" class="info-decoration-icon">
                         </div>
-                        <h2 class="info-title fw-bold mb-3">Yến Sào Hoàng Đăng</h2>
+                        <h2 class="info-title fw-bold mb-3">{{ config('shop.name') }}</h2>
                         <div class="info-description text-start mb-4">
                             <p class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Yến sào thiên nhiên 100% từ đảo Hòn Nội</p>
                             <p class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Quy trình sản xuất khép kín, đảm bảo vệ sinh an toàn thực phẩm</p>

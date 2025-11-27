@@ -289,10 +289,12 @@
 #mainHeader .navbar .nav-link, #mainHeader .header-nav .nav-link {
   color: #000 !important;
   font-weight: 600;
-  padding: 8px 12px;
-  border-radius: 8px;
+  padding: 6px 12px;
+  border-radius: 6px;
   border: 2px solid transparent;
   transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
 }
 
 #mainHeader .navbar .nav-link:hover, #mainHeader .header-nav .nav-link:hover {

@@ -28,7 +28,7 @@
                     </div>
                 </div>
                 <div class="col-lg-6">
-                    <img src="{{ asset('images/banners/logo.png') }}" alt="Yến Sào Hoàng Đăng" class="img-fluid" style="max-width: 400px; filter: drop-shadow(0 10px 30px rgba(0,0,0,0.3));">
+                    <img src="{{ asset('images/banners/logo.png') }}" alt="{{ config('shop.name') }}" class="img-fluid" style="max-width: 400px; filter: drop-shadow(0 10px 30px rgba(0,0,0,0.3));">
                 </div>
             </div>
         </div>

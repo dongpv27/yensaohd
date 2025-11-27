@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('title', 'Cẩm Nang & Tin Tức - Yến Sào Hoàng Đăng')
+@section('title', 'Cẩm Nang & Tin Tức - ' . config('shop.name'))
 
 @section('content')
 <div class="container my-5">

@@ -54,7 +54,7 @@
                 <div class="d-flex align-items-center header-logo-wrapper">
                     <a class="d-flex align-items-center text-dark text-decoration-none" href="/">
                         <img src="{{ asset('images/banners/logo.png') }}" 
-                             alt="Yến Sào Hoàng Đăng" 
+                             alt="{{ config('shop.name') }}" 
                              width="80" 
                              height="80"
                              loading="eager"

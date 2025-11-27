@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('title', $article->title . ' - Yến Sào Hoàng Đăng')
+@section('title', $article->title . ' - ' . config('shop.name'))
 
 @section('content')
 <div class="container my-5">

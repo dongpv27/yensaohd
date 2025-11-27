@@ -50,7 +50,7 @@
                     </h4>
                     
                     <div class="row mb-3">
-                        <div class="col-md-6">
+                        <div class="col-md-">
                             <div class="info-item">
                                 <span class="info-label">Mã đơn hàng:</span>
                                 <span class="info-value fw-bold text-primary">#{{ $order->order_number }}</span>
@@ -156,7 +156,7 @@
                             
                             @if($online_method === 'bank')
                             <div class="text-center mb-3">
-                                <img src="https://img.vietqr.io/image/VCB-1234567890-compact2.png?amount={{ $order->total }}&addInfo={{ $order->order_number }}&accountName=CONG TY YEN SAO HOANG DANG" 
+                                <img src="https://img.vietqr.io/image/{{ config('shop.bank.bank_code') }}-{{ config('shop.bank.account_number') }}-compact2.png?amount={{ $order->total }}&addInfo={{ $order->order_number }}&accountName={{ urlencode(config('shop.bank.account_name')) }}" 
                                      alt="QR Code" 
                                      class="img-fluid mx-auto d-block" 
                                      style="max-width: 250px; border: 2px solid #17a2b8; border-radius: 8px; padding: 10px; background: white;">
@@ -164,9 +164,9 @@
                             </div>
                             <div>
                                 <p class="mb-2"><strong>Thông tin chuyển khoản:</strong></p>
-                                <p class="mb-1">Ngân hàng: <strong>Vietcombank (VCB)</strong></p>
-                                <p class="mb-1">Số TK: <strong>1234567890</strong></p>
-                                <p class="mb-1">Chủ TK: <strong>CONG TY YEN SAO HOANG DANG</strong></p>
+                                <p class="mb-1">Ngân hàng: <strong>{{ config('shop.bank.bank_name') }} ({{ config('shop.bank.bank_code') }})</strong></p>
+                                <p class="mb-1">Số TK: <strong>{{ config('shop.bank.account_number') }}</strong></p>
+                                <p class="mb-1">Chủ TK: <strong>{{ config('shop.bank.account_name') }}</strong></p>
                                 <p class="mb-1">Số tiền: <strong class="text-danger">{{ number_format($order->total, 0, ',', '.') }}₫</strong></p>
                                 <p class="mb-0">Nội dung: <strong>{{ $order->order_number }}</strong></p>
                             </div>
@@ -184,7 +184,7 @@
                             @endif
 
                             <div class="mt-3">
-                                <small class="text-muted">
+                                <small class="text-danger">
                                     <i class="bi bi-info-circle me-1"></i>
                                     Đơn hàng sẽ được xử lý sau khi chúng tôi xác nhận thanh toán của bạn.
                                 </small>
@@ -250,7 +250,7 @@
 .info-label {
     font-weight: 500;
     color: #6c757d;
-    min-width: 150px;
+    min-width: 130px;
 }
 
 .info-value {

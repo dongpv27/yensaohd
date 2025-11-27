@@ -4,16 +4,16 @@
             <!-- Column 1: Logo centered + Brand Name -->
             <div class="col-md-4 mb-4 d-flex flex-column align-items-center justify-content-center">
                 <img src="{{ asset('images/banners/logo.png') }}" alt="Logo" width="150" height="150">
-                <h2 class="fw-bold mb-3" style="color:#936f03">Yến Sào Hoàng Đăng</h2>
+                <h2 class="fw-bold mb-3" style="color:#936f03">{{ config('shop.name') }}</h2>
             </div>
             
             <!-- Column 2: Contact Info -->
             <div class="col-md-3 mb-4">
                 <h6 class="fw-bold mb-3">Thông Tin Liên Hệ</h6>
                 <ul class="list-unstyled">
-                    <li class="mb-2"><i class="bi bi-envelope me-2"></i>Email: info@yensaohd.vn</li>
-                    <li class="mb-2"><i class="bi bi-telephone me-2"></i>SĐT: 0900 000 000</li>
-                    <li class="mb-0"><i class="bi bi-geo-alt me-2"></i>Địa chỉ: Khánh Hòa, Việt Nam</li>
+                    <li class="mb-2"><i class="bi bi-envelope me-2"></i>Email: {{ config('shop.email') }}</li>
+                    <li class="mb-2"><i class="bi bi-telephone me-2"></i>SĐT: {{ config('shop.phone') }}</li>
+                    <li class="mb-0"><i class="bi bi-geo-alt me-2"></i>Địa chỉ: {{ config('shop.address') }}</li>
                 </ul>
             </div>
             
@@ -39,19 +39,19 @@
             </div>
         </div>
         <hr class="my-4">
-        <div class="text-center" style="color:#5A381E">© 2025 Yến Sào Hoàng Đăng. All rights reserved.</div>
+        <div class="text-center" style="color:#5A381E">© 2025 {{ config('shop.name') }}. All rights reserved.</div>
     </div>
 </footer>
 
 <!-- Floating Contact Buttons -->
 <div class="floating-contact">
-    <a href="https://facebook.com" target="_blank" class="floating-btn fb-btn" title="Facebook">
+    <a href="{{ config('shop.social.facebook') }}" target="_blank" class="floating-btn fb-btn" title="Facebook">
         <i class="bi bi-facebook"></i>
     </a>
-    <a href="https://zalo.me/0900000000" target="_blank" class="floating-btn zalo-btn" title="Zalo">
+    <a href="{{ config('shop.social.zalo') }}" target="_blank" class="floating-btn zalo-btn" title="Zalo">
         <img src="https://page.widget.zalo.me/static/images/2.0/Logo.svg" alt="Zalo" width="24" height="24">
     </a>
-    <a href="tel:0900000000" class="floating-btn phone-btn" title="Hotline">
+    <a href="tel:{{ str_replace(' ', '', config('shop.phone')) }}" class="floating-btn phone-btn" title="Hotline">
         <i class="bi bi-telephone-fill"></i>
     </a>
 </div>
