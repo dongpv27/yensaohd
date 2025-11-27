@@ -747,4 +747,7 @@ html, body {
         padding-left: calc(var(--bs-gutter-x) * 0.5);
         padding-right: calc(var(--bs-gutter-x) * 0.5);
     }
+    .padding-b {
+        padding-bottom: 20px !important;
+    }
 }

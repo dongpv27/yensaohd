@@ -19,7 +19,8 @@ export default defineConfig({
                 'resources/js/app.js',
                 'resources/js/bootstrap.js',
                 'resources/js/header.js',
-                'resources/js/footer.js'
+                'resources/js/footer.js',
+                'resources/js/cart-toast.js'
 
             ],
             refresh: true,

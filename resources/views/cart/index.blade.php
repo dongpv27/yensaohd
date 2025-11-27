@@ -103,12 +103,23 @@
                 <!-- Cart Items -->
                 @foreach($cart as $id => $item)
                 <div class="row cart-item-row align-items-center" data-item-id="{{ $id }}" data-price="{{ $item['price'] }}">
+                    <!-- Remove button (mobile only - positioned absolute) -->
+                    <div class="cart-remove-mobile d-md-none">
+                        <form action="/cart/remove/{{ $id }}" method="POST" class="d-inline remove-item-form">
+                            @csrf
+                            <button type="submit" class="cart-remove-btn" title="Xóa sản phẩm">
+                                <i class="bi bi-x-circle"></i>
+                            </button>
+                        </form>
+                    </div>
+                    
+                    <!-- Product info with image and name -->
                     <div class="col-5">
                         <div class="d-flex align-items-center gap-3">
                             <img src="{{ $item['image'] ? asset('storage/'.$item['image']) : asset('images/products/product-1.jpg') }}" 
                                  alt="{{ $item['name'] }}" 
                                  class="cart-item-image">
-                            <div>
+                            <div class="flex-grow-1">
                                 <a href="/products/{{ $id }}" class="cart-item-name">{{ $item['name'] }}</a>
                                 @if(isset($item['weight']) && $item['weight'])
                                 <div class="mt-1">
@@ -117,13 +128,22 @@
                                     </span>
                                 </div>
                                 @endif
+                                <!-- Price shown on mobile only -->
+                                <div class="d-md-none mt-2">
+                                    <!-- <span class="cart-item-price-mobile">{{ number_format($item['price'], 0, ',', '.') }}₫</span> -->
+                                     <span class="text-muted">{{ $item['quantity'] }} x {{ number_format($item['price'], 0, ',', '.') }}₫</span>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-2 text-center">
+                    
+                    <!-- Price (desktop/tablet only) -->
+                    <div class="col-2 text-center d-none d-md-block">
                         <span class="cart-item-price">{{ number_format($item['price'], 0, ',', '.') }}₫</span>
                     </div>
-                    <div class="col-2 text-center">
+                    
+                    <!-- Quantity control -->
+                    <div class="col-2 text-center cart-qty-col">
                         <div class="cart-quantity-control mx-auto">
                             <button type="button" class="qty-decrease">-</button>
                             <input type="number" 
@@ -135,10 +155,24 @@
                             <button type="button" class="qty-increase">+</button>
                         </div>
                     </div>
-                    <div class="col-2 text-end">
+                    
+                    <!-- Subtotal (desktop/tablet) -->
+                    <div class="col-2 text-end d-none d-md-block">
                         <span class="item-subtotal fw-bold">{{ number_format($item['price'] * $item['quantity'], 0, ',', '.') }}₫</span>
                     </div>
-                    <div class="col-1 text-end">
+                    
+                    <!-- Mobile calculation info and subtotal -->
+                    <div class="cart-mobile-calculation d-md-none">
+                        <div class="cart-calc-detail">
+                            <!-- <span class="text-muted">{{ $item['quantity'] }} x {{ number_format($item['price'], 0, ',', '.') }}₫</span> -->
+                        </div>
+                        <div class="cart-subtotal-mobile">
+                            <span class="item-subtotal item-subtotal-mobile fw-bold">{{ number_format($item['price'] * $item['quantity'], 0, ',', '.') }}₫</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Remove button (desktop/tablet only) -->
+                    <div class="col-1 text-end d-none d-md-block">
                         <form action="/cart/remove/{{ $id }}" method="POST" class="d-inline remove-item-form">
                             @csrf
                             <button type="submit" class="cart-remove-btn" title="Xóa sản phẩm">
@@ -356,7 +390,11 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Update item subtotal
         const itemSubtotal = price * quantity;
-        row.querySelector('.item-subtotal').textContent = formatCurrency(itemSubtotal);
+        // Update both desktop and mobile subtotal elements
+        const subtotalElements = row.querySelectorAll('.item-subtotal');
+        subtotalElements.forEach(el => {
+            el.textContent = formatCurrency(itemSubtotal);
+        });
         
         // Update cart totals
         updateCartTotals();

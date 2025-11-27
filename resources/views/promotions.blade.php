@@ -13,11 +13,11 @@
     </div>
 
     <!-- Filter & Count -->
-    <div class="row mb-4 align-items-center">
-        <div class="col-md-6">
-            <h5 class="mb-0">
-                <span class="badge bg-danger">{{ $products->total() }} sản phẩm</span> 
-                đang được khuyến mãi
+    <div class="row mb-4 align-items-center ">
+        <div class="col-md-6 padding-b">
+            <h5 class="mb-0 promotions-header">
+                <span class="badge bg-danger promo-count-badge">{{ $products->total() }} sản phẩm</span>
+                <span class="promo-count-text">đang được khuyến mãi</span>
             </h5>
         </div>
         <div class="col-md-6 text-end">

@@ -154,16 +154,32 @@
                                         -{{ $product->discount_percent }}%
                                     </div>
                                     @endif
+                                    @if($product->weight)
+                                    <div style="position: absolute; bottom: 8px; right: 8px; z-index: 5;">
+                                        <small class="badge bg-info" style="font-size: 0.7rem;">
+                                            <i class="bi bi-box-seam"></i> {{ $product->weight }}
+                                        </small>
+                                    </div>
+                                    @endif
                                 </div>
                                 <div class="card-body p-2 related-product-body" onclick="window.location.href='{{ url('/products/' . $product->id) }}'">
                                     <h6 class="card-title mb-2 related-product-title">{{ $product->name }}</h6>
                                     <div class="text-end">
                                         @if($product->is_best_seller)
-                                        <small class="text-muted text-decoration-line-through d-block related-product-price-old">{{ number_format($product->price) }}₫</small>
-                                        <p class="text-danger fw-bold mb-0 related-product-price-new">{{ number_format($product->display_price) }}₫</p>
+                                        <div class="mb-1">
+                                            <small class="text-muted text-decoration-line-through me-1 related-product-price-old">{{ number_format($product->price) }}₫</small>
+                                            <span class="text-danger fw-bold related-product-price-new">{{ number_format($product->display_price) }}₫</span>
+                                        </div>
                                         @else
-                                        <p class="text-dark fw-bold mb-0 related-product-price-new">{{ number_format($product->price) }}₫</p>
+                                        <p class="text-dark fw-bold mb-1 related-product-price-new">{{ number_format($product->price) }}₫</p>
                                         @endif
+                                        <div class="text-end">
+                                            @if($product->quantity > 0)
+                                                <small class="badge bg-success" style="font-size: 0.7rem;">Còn {{ $product->quantity }} sản phẩm</small>
+                                            @else
+                                                <small class="badge bg-danger" style="font-size: 0.7rem;">Hết hàng</small>
+                                            @endif
+                                        </div>
                                     </div>
                                 </div>
                             </div>
