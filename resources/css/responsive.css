@@ -151,12 +151,31 @@ html, body {
         flex-shrink: 0;
     }
 
-    /* Fix cart dropdown width */
+    /* Fix cart dropdown width and disable hover on mobile/tablet */
     .header-cart-dropdown {
         width: 90vw !important;
         max-width: 400px;
         left: auto !important;
         right: 0 !important;
+        display: none !important;
+        opacity: 0 !important;
+        visibility: hidden !important;
+        pointer-events: none !important;
+    }
+
+    /* Disable hover effects for cart dropdown on mobile/tablet */
+    .dropdown:hover > .header-cart-dropdown {
+        display: none !important;
+        opacity: 0 !important;
+        visibility: hidden !important;
+        pointer-events: none !important;
+    }
+
+    .header-cart-dropdown:hover {
+        display: none !important;
+        opacity: 0 !important;
+        visibility: hidden !important;
+        pointer-events: none !important;
     }
 
     /* Fix search input */
@@ -240,13 +259,25 @@ html, body {
         -webkit-box-orient: vertical;
     }
 
+    /* Price styling for best seller carousel - Mobile */
+    .best-seller-carousel .text-end .mb-1 {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: flex-end !important;
+        flex-wrap: nowrap !important;
+        gap: 0.25rem !important;
+    }
+
     .best-seller-carousel .text-muted {
         font-size: 0.65rem !important;
+        white-space: nowrap !important;
+        margin: 0 !important;
     }
 
     .best-seller-carousel .text-danger,
     .best-seller-carousel .text-dark {
         font-size: 0.85rem !important;
+        white-space: nowrap !important;
     }
 
     .best-seller-carousel small {
@@ -332,12 +363,24 @@ html, body {
         overflow: hidden;
     }
 
+    /* Price styling for product blocks - Mobile */
+    .product-block-price-section .text-end > div {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: flex-end !important;
+        flex-wrap: nowrap !important;
+        gap: 0.3rem !important;
+    }
+
     .product-block-price-old {
         font-size: 0.75rem;
+        white-space: nowrap !important;
+        margin: 0 !important;
     }
 
     .product-block-price-new {
         font-size: 0.95rem;
+        white-space: nowrap !important;
     }
 
     .product-block-btn {
@@ -374,6 +417,12 @@ html, body {
         margin: 0 auto !important;
     }
 
+    /* Hide 2nd and 3rd reviews on mobile */
+    #customerReviewsCarousel .col-md-4:nth-child(2),
+    #customerReviewsCarousel .col-md-4:nth-child(3) {
+        display: none !important;
+    }
+
     .review-card {
         margin: 0 auto;
         max-width: 100%;
@@ -408,9 +457,20 @@ html, body {
         line-height: 1.6 !important;
     }
 
-    /* Category Title */
+    /* Category Title - Center align on mobile */
+    .category-title-wrapper {
+        justify-content: center !important;
+        text-align: center;
+    }
+
+    .category-title-wrapper::before,
+    .category-title-wrapper::after {
+        flex: 1 !important;
+    }
+
     .category-title {
         font-size: 1.3rem;
+        text-align: center;
     }
 
     /* Info carousel */
@@ -537,6 +597,21 @@ html, body {
         grid-template-columns: repeat(3, 1fr);
     }
 
+    /* Category Title - Center align on tablet */
+    .category-title-wrapper {
+        justify-content: center !important;
+        text-align: center;
+    }
+
+    .category-title-wrapper::before,
+    .category-title-wrapper::after {
+        flex: 1 !important;
+    }
+
+    .category-title {
+        text-align: center;
+    }
+
     /* Best Seller - 3 products per slide on Tablet */
     .best-seller-carousel {
         padding: 0 45px !important;
@@ -579,6 +654,12 @@ html, body {
         font-size: 0.85rem !important;
         line-height: 1.2 !important;
         height: 2.4rem !important;
+        margin-bottom: 0.5rem !important;
+        overflow: hidden !important;
+        display: -webkit-box !important;
+        -webkit-line-clamp: 2 !important;
+        line-clamp: 2 !important;
+        -webkit-box-orient: vertical !important;
     }
 
     .best-seller-carousel .carousel-control-prev,
@@ -596,6 +677,12 @@ html, body {
     #customerReviewsCarousel .col-md-4 {
         max-width: 600px !important;
         margin: 0 auto !important;
+    }
+
+    /* Hide 2nd and 3rd reviews on tablet */
+    #customerReviewsCarousel .col-md-4:nth-child(2),
+    #customerReviewsCarousel .col-md-4:nth-child(3) {
+        display: none !important;
     }
 
     .review-card {

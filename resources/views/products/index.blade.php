@@ -65,13 +65,17 @@
         <div class="product-row">
             @foreach($products as $product)
             <div class="product-col">
-                <div class="product-block-card">
-                    <div class="product-block-image-wrapper" style="cursor: pointer;">
+                <div class="product-block-card {{ $product->quantity <= 0 ? 'out-of-stock' : '' }}"
+                     data-product-id="{{ $product->id }}"
+                     data-product-name="{{ $product->name }}"
+                     data-product-price="{{ $product->is_best_seller ? $product->display_price : $product->price }}"
+                     data-product-image="{{ $product->image ? asset('storage/'.$product->image) : asset('images/products/product-1.jpg') }}"
+                     data-product-quantity="{{ $product->quantity }}">
+                    <div class="product-block-image-wrapper product-clickable" style="cursor: pointer;">
                         <img src="{{ $product->image ? asset('storage/'.$product->image) : asset('images/products/product-1.jpg') }}" 
-                             class="product-block-image" alt="{{ $product->name }}"
-                             onclick="window.location.href='{{ url('/products/' . $product->id) }}'">
+                             class="product-block-image" alt="{{ $product->name }}">
                         @if($product->is_best_seller)
-                        <div class="product-block-discount" onclick="window.location.href='{{ url('/products/' . $product->id) }}'">-{{ $product->discount_percent }}%</div>
+                        <div class="product-block-discount">-{{ $product->discount_percent }}%</div>
                         @endif
                         @if($product->weight)
                         <div style="position: absolute; bottom: 10px; right: 10px; z-index: 5;">
@@ -91,9 +95,9 @@
                             </button>
                         </form>
                     </div>
-                    <div class="product-block-body" style="cursor: pointer;">
-                        <h5 class="product-block-title" onclick="window.location.href='{{ url('/products/' . $product->id) }}'">{{ $product->name }}</h5>
-                        <div class="product-block-price-section text-end" onclick="window.location.href='{{ url('/products/' . $product->id) }}'">
+                    <div class="product-block-body product-clickable" style="cursor: pointer;">
+                        <h5 class="product-block-title">{{ $product->name }}</h5>
+                        <div class="product-block-price-section text-end">
                             @if($product->is_best_seller)
                             <div>
                                 <span class="product-block-price-old">{{ number_format($product->original_price ?? $product->price) }}₫</span>
@@ -110,7 +114,7 @@
                                 @endif
                             </div>
                         </div>
-                        <button class="btn product-block-btn w-100" onclick="window.location.href='{{ url('/products/' . $product->id) }}'">Đặt hàng ngay</button>
+                        <button class="btn product-block-btn w-100 product-order-btn">Đặt hàng ngay</button>
                     </div>
                 </div>
             </div>
@@ -223,13 +227,13 @@
                 <i class="bi bi-fire text-danger me-2"></i>Sản Phẩm Khuyến Mãi
             </h3>
         </div>
-        <div id="promotionProductsCarousel" class="carousel slide position-relative" data-bs-ride="carousel" data-bs-interval="3000" style="padding: 0 50px;">
+        <div id="promotionProductsCarousel" class="carousel slide position-relative promotion-carousel" data-bs-ride="carousel" data-bs-interval="3000">
             <div class="carousel-inner">
                 @foreach($promotionProducts->chunk(4) as $index => $chunk)
                 <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
-                    <div class="d-flex justify-content-center gap-3">
+                    <div class="d-flex justify-content-center promotion-carousel-items">
                         @foreach($chunk as $product)
-                        <div style="width: 23%; min-width: 200px;">
+                        <div class="promotion-product-item">
                             <a href="{{ url('/products/' . $product->id) }}" class="text-decoration-none">
                                 <div class="card h-100 shadow-sm border-0" style="border-radius: 12px; overflow: hidden;">
                                     <div style="position: relative; overflow: hidden;">
@@ -282,14 +286,14 @@
                 @endforeach
             </div>
             @if($promotionProducts->count() > 4)
-            <button class="carousel-control-prev" type="button" data-bs-target="#promotionProductsCarousel" data-bs-slide="prev" style="left: 5px; width: auto;">
-                <span class="d-flex align-items-center justify-content-center rounded-circle" style="background-color: rgba(200, 200, 200, 0.8); width: 35px; height: 35px;" aria-hidden="true">
+            <button class="carousel-control-prev promotion-carousel-prev" type="button" data-bs-target="#promotionProductsCarousel" data-bs-slide="prev">
+                <span class="d-flex align-items-center justify-content-center rounded-circle promotion-carousel-icon" aria-hidden="true">
                     <i class="bi bi-chevron-left text-white fs-5"></i>
                 </span>
                 <span class="visually-hidden">Previous</span>
             </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#promotionProductsCarousel" data-bs-slide="next" style="right: 5px; width: auto;">
-                <span class="d-flex align-items-center justify-content-center rounded-circle" style="background-color: rgba(200, 200, 200, 0.8); width: 35px; height: 35px;" aria-hidden="true">
+            <button class="carousel-control-next promotion-carousel-next" type="button" data-bs-target="#promotionProductsCarousel" data-bs-slide="next">
+                <span class="d-flex align-items-center justify-content-center rounded-circle promotion-carousel-icon" aria-hidden="true">
                     <i class="bi bi-chevron-right text-white fs-5"></i>
                 </span>
                 <span class="visually-hidden">Next</span>
@@ -425,5 +429,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 </script>
+
+@include('partials.mobile-product-modal')
 
 @endsection

@@ -34,13 +34,17 @@
         <div class="product-row">
             @foreach($products as $product)
             <div class="product-col">
-                <div class="product-block-card">
-                    <div class="product-block-image-wrapper" style="cursor: pointer;">
+                <div class="product-block-card {{ $product->quantity <= 0 ? 'out-of-stock' : '' }}"
+                     data-product-id="{{ $product->id }}"
+                     data-product-name="{{ $product->name }}"
+                     data-product-price="{{ $product->is_best_seller ? $product->display_price : $product->price }}"
+                     data-product-image="{{ $product->image ? asset('storage/'.$product->image) : asset('images/products/product-1.jpg') }}"
+                     data-product-quantity="{{ $product->quantity }}">
+                    <div class="product-block-image-wrapper product-clickable" style="cursor: pointer;">
                         <img src="{{ $product->image ? asset('storage/'.$product->image) : asset('images/products/product-1.jpg') }}" 
-                             class="product-block-image" alt="{{ $product->name }}"
-                             onclick="window.location.href='{{ url('/products/' . $product->id) }}'">
+                             class="product-block-image" alt="{{ $product->name }}">
                         @if($product->is_best_seller)
-                        <div class="product-block-discount" onclick="window.location.href='{{ url('/products/' . $product->id) }}'">
+                        <div class="product-block-discount">
                             -{{ $product->discount_percent }}%
                         </div>
                         @endif
@@ -52,7 +56,10 @@
                             </span>
                         </div>
                         
-                        <form action="{{ url('/cart/add/' . $product->id) }}" method="POST" class="add-to-cart-form d-inline" data-product-name="{{ $product->name }}">
+                        <form action="{{ url('/cart/add/' . $product->id) }}" method="POST" class="add-to-cart-form d-inline" 
+                              data-product-name="{{ $product->name }}"
+                              data-product-image="{{ $product->image ? asset('storage/'.$product->image) : asset('images/products/product-1.jpg') }}"
+                              data-product-price="{{ number_format($product->display_price ?? $product->price, 0, ',', '.') }}">
                             @csrf
                             <input type="hidden" name="quantity" value="1">
                             <button type="submit" class="product-block-cart-icon">
@@ -60,11 +67,11 @@
                             </button>
                         </form>
                     </div>
-                    <div class="product-block-body" style="cursor: pointer;">
-                        <h5 class="product-block-title" onclick="window.location.href='{{ url('/products/' . $product->id) }}'">
+                    <div class="product-block-body product-clickable" style="cursor: pointer;">
+                        <h5 class="product-block-title">
                             {{ $product->name }}
                         </h5>
-                        <div class="product-block-price-section text-end" onclick="window.location.href='{{ url('/products/' . $product->id) }}'">
+                        <div class="product-block-price-section text-end">
                             @if($product->is_best_seller)
                             <div>
                                 <span class="product-block-price-old">{{ number_format($product->original_price ?? $product->price) }}₫</span>
@@ -86,7 +93,7 @@
                                 @endif
                             </div>
                         </div>
-                        <button class="btn product-block-btn w-100" onclick="window.location.href='{{ url('/products/' . $product->id) }}'">
+                        <button class="btn product-block-btn w-100 product-order-btn">
                             <i class="bi bi-cart-plus me-2"></i>Mua ngay
                         </button>
                     </div>
@@ -313,5 +320,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 </script>
+
+@include('partials.mobile-product-modal')
 
 @endsection

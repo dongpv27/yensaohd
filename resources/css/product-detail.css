@@ -232,6 +232,34 @@
     box-shadow: 0 6px 16px rgba(255, 179, 0, 0.4);
 }
 
+/* Disabled state for buttons */
+.btn-add-cart:disabled,
+.btn-buy-now:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+    transform: none;
+    box-shadow: none;
+}
+
+.btn-add-cart:disabled:hover,
+.btn-buy-now:disabled:hover {
+    transform: none;
+    box-shadow: none;
+}
+
+/* Disabled state for quantity controls */
+.quantity-btn:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+    background-color: #e9ecef;
+}
+
+.quantity-input:disabled {
+    cursor: not-allowed;
+    background-color: #e9ecef;
+    opacity: 0.6;
+}
+
 .btn-buy-now {
     flex: 1;
     background: linear-gradient(135deg, #dc3545, #c82333);
@@ -431,7 +459,7 @@
 .commitment-icon {
     width: 28px;
     height: 28px;
-    background: linear-gradient(135deg, #dc3545, #c82333);
+    background: linear-gradient(135deg, #35dc3d, #31c823);
     color: white;
     border-radius: 50%;
     display: flex;
@@ -599,7 +627,7 @@
 
 /* Trust Banner */
 .trust-banner {
-    background: linear-gradient(135deg, #dc3545, #c82333);
+    background: #59ad0c;
     color: white;
     text-align: center;
     padding: 15px;

@@ -1,0 +1,202 @@
+/* Mobile & Tablet Product Modal Styles */
+#mobileProductModal .modal-content {
+    border-radius: 15px;
+    border: none;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+}
+
+#mobileProductModal .modal-header {
+    background: linear-gradient(135deg, #0f8f06 0%, #90ed8a 100%);
+    color: white;
+    border-radius: 15px 15px 0 0;
+}
+
+#mobileProductModal .modal-header .btn-close {
+    filter: brightness(0) invert(0);
+}
+
+#mobileProductModal .modal-body {
+    padding: 1.5rem;
+}
+
+#mobileProductModal #modalProductImage {
+    max-height: 200px;
+    object-fit: cover;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+#mobileProductModal #modalProductName {
+    font-size: 1.1rem;
+    line-height: 1.4;
+    color: #333;
+}
+
+#mobileProductModal #modalProductPrice {
+    font-size: 1.5rem;
+}
+
+#mobileProductModal .input-group {
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+#mobileProductModal .input-group .btn {
+    border: none;
+    background: #f8f9fa;
+    color: #495057;
+    font-weight: bold;
+    transition: all 0.2s;
+}
+
+#mobileProductModal .input-group .btn:hover {
+    background: #e9ecef;
+}
+
+#mobileProductModal .input-group .form-control {
+    border: none;
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+/* Remove spinner arrows from number input */
+#mobileProductModal input[type="number"]::-webkit-inner-spin-button,
+#mobileProductModal input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+#mobileProductModal input[type="number"] {
+    -moz-appearance: textfield;
+    appearance: textfield;
+}
+
+/* Focus state for quantity input */
+#mobileProductModal #modalProductQuantity:focus {
+    outline: none;
+    box-shadow: none;
+    background-color: #f8f9fa;
+}
+
+/* Disabled state for quantity input */
+#mobileProductModal #modalProductQuantity:disabled {
+    background-color: #e9ecef;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+/* Disabled state for quantity buttons */
+#mobileProductModal .input-group .btn:disabled {
+    background: #e9ecef;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+/* Quantity warning alert */
+#quantityWarning {
+    animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+#mobileProductModal .modal-footer {
+    padding: 1rem 1.5rem;
+}
+
+#mobileProductModal .modal-footer .btn {
+    border-radius: 8px;
+    font-weight: 600;
+    padding: 0.6rem 1.5rem;
+    transition: all 0.3s;
+}
+
+#mobileProductModal .modal-footer .btn-primary {
+    background: #F5B041;
+    border: none;
+}
+
+#mobileProductModal .modal-footer .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+}
+
+#mobileProductModal .modal-footer .btn-secondary {
+    background: #6c757d;
+    border: none;
+}
+
+#mobileProductModal .modal-footer .btn-secondary:hover {
+    background: #5a6268;
+}
+
+/* Out of stock button state */
+#mobileProductModal .modal-footer .btn:disabled {
+    cursor: not-allowed;
+    opacity: 0.65;
+}
+
+#mobileProductModal .modal-footer .btn-secondary:disabled {
+    background: #6c757d;
+}
+
+/* Animation */
+#mobileProductModal .modal.fade .modal-dialog {
+    transform: scale(0.7);
+    opacity: 0;
+    transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+}
+
+#mobileProductModal .modal.show .modal-dialog {
+    transform: scale(1);
+    opacity: 1;
+}
+
+/* Tablet specific (769px - 1024px) */
+@media (min-width: 769px) and (max-width: 1024px) {
+    #mobileProductModal .modal-dialog {
+        max-width: 500px;
+        margin: 1.75rem auto;
+    }
+    
+    #mobileProductModal #modalProductImage {
+        max-height: 220px;
+    }
+    
+    #mobileProductModal #modalProductPrice {
+        font-size: 1.4rem;
+    }
+}
+
+/* Mobile specific (≤768px) */
+@media (max-width: 768px) {
+    #mobileProductModal .modal-dialog {
+        margin: 1rem;
+    }
+    
+    #mobileProductModal .modal-content {
+        border-radius: 12px;
+    }
+    
+    #mobileProductModal #modalProductImage {
+        max-height: 180px;
+    }
+    
+    #mobileProductModal #modalProductPrice {
+        font-size: 1.3rem;
+    }
+    
+    #mobileProductModal .modal-footer .btn {
+        font-size: 0.9rem;
+        padding: 0.5rem 1rem;
+    }
+}

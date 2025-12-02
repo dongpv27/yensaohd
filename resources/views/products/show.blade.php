@@ -43,7 +43,7 @@
                 <!-- Trust Banner -->
                 <div class="trust-banner">
                     <i class="bi bi-shield-check"></i>
-                    Tổ Yến Khánh Hòa phân phối bởi NESTVUI luôn đảm bảo 100% TỔ YẾN NGUYÊN CHẤT và KHÔNG PHA, TẨM DƯỠNG.
+                    Yến Sào Hoàng Đăng luôn đảm bảo 100% TỔ YẾN NGUYÊN CHẤT và KHÔNG PHA, TẨM DƯỠNG.
                 </div>
             </div>
         </div>
@@ -110,16 +110,25 @@
                     @csrf
                     <div class="quantity-and-actions">
                         <div class="quantity-control">
-                            <button type="button" class="quantity-btn" onclick="decreaseQuantity()">-</button>
-                            <input type="number" name="quantity" value="1" min="1" max="100" class="quantity-input" id="quantityInput">
-                            <button type="button" class="quantity-btn" onclick="increaseQuantity()">+</button>
+                            <button type="button" class="quantity-btn" onclick="decreaseQuantity()" {{ $product->quantity <= 0 ? 'disabled' : '' }}>-</button>
+                            <input type="number" name="quantity" value="1" min="1" max="{{ $product->quantity }}" class="quantity-input" id="quantityInput" {{ $product->quantity <= 0 ? 'disabled' : '' }}>
+                            <button type="button" class="quantity-btn" onclick="increaseQuantity()" {{ $product->quantity <= 0 ? 'disabled' : '' }}>+</button>
                         </div>
+                        @if($product->quantity > 0)
                         <button type="submit" class="btn-add-cart">
                             <i class="bi bi-cart-plus"></i> THÊM VÀO GIỎ HÀNG
                         </button>
                         <button type="button" class="btn-buy-now" onclick="buyNow()">
                             <i class="bi bi-lightning-fill"></i> MUA NGAY
                         </button>
+                        @else
+                        <button type="button" class="btn-add-cart" disabled style="cursor: not-allowed; opacity: 0.6;">
+                            <i class="bi bi-x-circle"></i> HẾT HÀNG
+                        </button>
+                        <button type="button" class="btn-buy-now" disabled style="cursor: not-allowed; opacity: 0.6;">
+                            <i class="bi bi-x-circle"></i> HẾT HÀNG
+                        </button>
+                        @endif
                     </div>
                 </form>
 
@@ -197,7 +206,7 @@
         <div class="row g-4">
             @foreach($relatedProducts as $relatedProduct)
             <div class="col-md-3 col-6">
-                <div class="product-block-card">
+                <div class="product-block-card {{ $relatedProduct->quantity <= 0 ? 'out-of-stock' : '' }}">
                     <div class="product-block-image-wrapper" style="cursor: pointer;">
                         <img src="{{ $relatedProduct->image ? asset('storage/'.$relatedProduct->image) : asset('images/products/product-1.jpg') }}" 
                              class="product-block-image" alt="{{ $relatedProduct->name }}"

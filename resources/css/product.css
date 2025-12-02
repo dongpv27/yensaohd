@@ -290,6 +290,15 @@
     transform: translate(50%, -50%);
 }
 
+/* Hide cart icon for out of stock products */
+.product-block-card.out-of-stock .product-block-cart-icon {
+    display: none !important;
+}
+
+.product-block-card.out-of-stock:hover .product-block-cart-icon {
+    display: none !important;
+}
+
 .product-block-discount {
     position: absolute;
     top: 10px;
