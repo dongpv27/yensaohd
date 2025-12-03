@@ -2,6 +2,16 @@
 
 @section('content')
 <div class="container my-5">
+    <!-- Breadcrumb -->
+    <nav aria-label="breadcrumb" class="mb-4">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/" class="text-decoration-none breadcrumb-link">Trang chủ</a></li>
+            <li class="breadcrumb-item"><a href="/cart" class="text-decoration-none breadcrumb-link">Giỏ hàng</a></li>
+            <li class="breadcrumb-item"><a href="/checkout" class="text-decoration-none breadcrumb-link">Thanh toán</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Xác nhận đơn hàng</li>
+        </ol>
+    </nav>
+
     <!-- Progress Breadcrumb -->
     <div class="checkout-progress">
         <ul class="progress-steps">

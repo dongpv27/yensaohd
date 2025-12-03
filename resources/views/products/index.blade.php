@@ -138,71 +138,218 @@
     @if(isset($relatedProducts) && $relatedProducts->count() > 0)
     <div class="col-12 related-products-section">
         <h3 class="category-title-2 mb-4 text-left related-products-title">Sản Phẩm Liên Quan</h3>
-        <div id="relatedProductsCarousel" class="carousel slide position-relative related-products-carousel" data-bs-ride="carousel" data-bs-interval="3000">
+        
+        <!-- Mobile Carousel: 2 items per slide -->
+        <div id="relatedProductsCarouselMobile" class="carousel slide position-relative related-products-carousel d-md-none" data-bs-ride="carousel" data-bs-interval="3000" style="padding: 0 40px;">
             <div class="carousel-inner">
-                @foreach($relatedProducts->chunk(4) as $index => $chunk)
+                @foreach($relatedProducts->chunk(2) as $index => $chunk)
                 <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
-                    <div class="d-flex justify-content-center gap-3">
+                    <div class="d-flex gap-3" style="justify-content: flex-start;">
                         @foreach($chunk as $product)
-                        <div class="related-product-card">
-                            <div class="card h-100 shadow-sm border-1 related-product-card-inner">
-                                <div class="related-product-image-wrapper">
-                                    <img src="{{ $product->image ? asset('storage/'.$product->image) : asset('images/products/product-1.jpg') }}" 
-                                         class="card-img-top related-product-image" 
-                                         onmouseover="this.style.transform='scale(1.1)'"
-                                         onmouseout="this.style.transform='scale(1)'"
-                                         onclick="window.location.href='{{ url('/products/' . $product->id) }}'"
-                                         alt="{{ $product->name }}">
-                                    @if($product->is_best_seller)
-                                    <div class="related-product-discount-badge">
-                                        -{{ $product->discount_percent }}%
-                                    </div>
-                                    @endif
-                                    @if($product->weight)
-                                    <div style="position: absolute; bottom: 8px; right: 8px; z-index: 5;">
-                                        <small class="badge bg-info" style="font-size: 0.7rem;">
-                                            <i class="bi bi-box-seam"></i> {{ $product->weight }}
-                                        </small>
-                                    </div>
-                                    @endif
-                                </div>
-                                <div class="card-body p-2 related-product-body" onclick="window.location.href='{{ url('/products/' . $product->id) }}'">
-                                    <h6 class="card-title mb-2 related-product-title">{{ $product->name }}</h6>
-                                    <div class="text-end">
+                        <div style="width: calc(50% - 6px); min-width: 140px;">
+                            <a href="{{ url('/products/' . $product->id) }}" class="text-decoration-none">
+                                <div class="card h-100 shadow-sm border-0" style="border-radius: 12px; overflow: hidden;">
+                                    <div style="position: relative; overflow: hidden;">
+                                        <img src="{{ $product->image ? asset('storage/'.$product->image) : asset('images/products/product-1.jpg') }}" 
+                                             class="card-img-top" 
+                                             style="height: 150px; object-fit: cover;"
+                                             alt="{{ $product->name }}">
                                         @if($product->is_best_seller)
-                                        <div class="mb-1">
-                                            <small class="text-muted text-decoration-line-through me-1 related-product-price-old">{{ number_format($product->price) }}₫</small>
-                                            <span class="text-danger fw-bold related-product-price-new">{{ number_format($product->display_price) }}₫</span>
+                                        <div style="position: absolute; top: 8px; right: 8px; background-color: #dc3545; color: white; padding: 4px 8px; border-radius: 5px; font-weight: bold; font-size: 0.65rem; z-index: 5;">
+                                            -{{ $product->discount_percent }}%
                                         </div>
-                                        @else
-                                        <p class="text-dark fw-bold mb-1 related-product-price-new">{{ number_format($product->price) }}₫</p>
                                         @endif
+                                        @if($product->weight)
+                                        <div style="position: absolute; bottom: 8px; right: 8px; z-index: 5;">
+                                            <small class="badge bg-info" style="font-size: 0.6rem;">
+                                                <i class="bi bi-box-seam"></i> {{ $product->weight }}
+                                            </small>
+                                        </div>
+                                        @endif
+                                    </div>
+                                    <div class="card-body p-2">
+                                        <h6 class="card-title mb-2" style="font-size: 0.8rem; line-height: 1.2; height: 2.4rem; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">{{ $product->name }}</h6>
                                         <div class="text-end">
-                                            @if($product->quantity > 0)
-                                                <small class="badge bg-success" style="font-size: 0.7rem;">Còn {{ $product->quantity }} sản phẩm</small>
+                                            @if($product->is_best_seller)
+                                            <div class="mb-1">
+                                                <small class="text-muted text-decoration-line-through me-1" style="font-size: 0.65rem;">{{ number_format($product->price) }}₫</small>
+                                                <span class="text-danger fw-bold" style="font-size: 0.85rem;">{{ number_format($product->display_price) }}₫</span>
+                                            </div>
                                             @else
-                                                <small class="badge bg-danger" style="font-size: 0.7rem;">Hết hàng</small>
+                                            <p class="text-dark fw-bold mb-1" style="font-size: 0.85rem;">{{ number_format($product->price) }}₫</p>
                                             @endif
+                                            <div>
+                                                @if($product->quantity > 0)
+                                                    <small class="badge bg-success" style="font-size: 0.65rem;">Còn {{ $product->quantity }}</small>
+                                                @else
+                                                    <small class="badge bg-danger" style="font-size: 0.65rem;">Hết hàng</small>
+                                                @endif
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </a>
                         </div>
                         @endforeach
                     </div>
                 </div>
                 @endforeach
             </div>
-            
-            @if($relatedProducts->count() > 4)
-            <button class="carousel-control-prev related-products-control-prev" type="button" data-bs-target="#relatedProductsCarousel" data-bs-slide="prev">
-                <span class="d-flex align-items-center justify-content-center rounded-circle related-products-control-icon" aria-hidden="true">
+            @if($relatedProducts->count() > 2)
+            <button class="carousel-control-prev" type="button" data-bs-target="#relatedProductsCarouselMobile" data-bs-slide="prev" style="left: 5px; width: auto;">
+                <span class="d-flex align-items-center justify-content-center rounded-circle" style="background-color: rgba(200, 200, 200, 0.8); width: 30px; height: 30px;" aria-hidden="true">
+                    <i class="bi bi-chevron-left text-white fs-6"></i>
+                </span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#relatedProductsCarouselMobile" data-bs-slide="next" style="right: 5px; width: auto;">
+                <span class="d-flex align-items-center justify-content-center rounded-circle" style="background-color: rgba(200, 200, 200, 0.8); width: 30px; height: 30px;" aria-hidden="true">
+                    <i class="bi bi-chevron-right text-white fs-6"></i>
+                </span>
+                <span class="visually-hidden">Next</span>
+            </button>
+            @endif
+        </div>
+
+        <!-- Tablet Carousel: 3 items per slide -->
+        <div id="relatedProductsCarouselTablet" class="carousel slide position-relative related-products-carousel d-none d-md-block d-lg-none" data-bs-ride="carousel" data-bs-interval="3000" style="padding: 0 45px;">
+            <div class="carousel-inner">
+                @foreach($relatedProducts->chunk(3) as $index => $chunk)
+                <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
+                    <div class="d-flex gap-3" style="justify-content: flex-start!important;">
+                        @foreach($chunk as $product)
+                        <div style="width: calc(33.333% - 8px); min-width: 160px;">
+                            <a href="{{ url('/products/' . $product->id) }}" class="text-decoration-none">
+                                <div class="card h-100 shadow-sm border-0" style="border-radius: 12px; overflow: hidden;">
+                                    <div style="position: relative; overflow: hidden;">
+                                        <img src="{{ $product->image ? asset('storage/'.$product->image) : asset('images/products/product-1.jpg') }}" 
+                                             class="card-img-top" 
+                                             style="height: 180px; object-fit: cover;"
+                                             alt="{{ $product->name }}">
+                                        @if($product->is_best_seller)
+                                        <div style="position: absolute; top: 8px; right: 8px; background-color: #dc3545; color: white; padding: 4px 8px; border-radius: 5px; font-weight: bold; font-size: 0.75rem; z-index: 5;">
+                                            -{{ $product->discount_percent }}%
+                                        </div>
+                                        @endif
+                                        @if($product->weight)
+                                        <div style="position: absolute; bottom: 8px; right: 8px; z-index: 5;">
+                                            <small class="badge bg-info" style="font-size: 0.7rem;">
+                                                <i class="bi bi-box-seam"></i> {{ $product->weight }}
+                                            </small>
+                                        </div>
+                                        @endif
+                                    </div>
+                                    <div class="card-body p-2">
+                                        <h6 class="card-title mb-2" style="font-size: 0.85rem; line-height: 1.2; height: 2.4rem; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">{{ $product->name }}</h6>
+                                        <div class="text-end">
+                                            @if($product->is_best_seller)
+                                            <div class="mb-1">
+                                                <small class="text-muted text-decoration-line-through me-1" style="font-size: 0.75rem;">{{ number_format($product->price) }}₫</small>
+                                                <span class="text-danger fw-bold" style="font-size: 0.9rem;">{{ number_format($product->display_price) }}₫</span>
+                                            </div>
+                                            @else
+                                            <p class="text-dark fw-bold mb-1" style="font-size: 0.9rem;">{{ number_format($product->price) }}₫</p>
+                                            @endif
+                                            <div>
+                                                @if($product->quantity > 0)
+                                                    <small class="badge bg-success" style="font-size: 0.7rem;">Còn {{ $product->quantity }}</small>
+                                                @else
+                                                    <small class="badge bg-danger" style="font-size: 0.7rem;">Hết hàng</small>
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        @endforeach
+                    </div>
+                </div>
+                @endforeach
+            </div>
+            @if($relatedProducts->count() > 3)
+            <button class="carousel-control-prev" type="button" data-bs-target="#relatedProductsCarouselTablet" data-bs-slide="prev" style="left: 5px; width: auto;">
+                <span class="d-flex align-items-center justify-content-center rounded-circle" style="background-color: rgba(200, 200, 200, 0.8); width: 35px; height: 35px;" aria-hidden="true">
                     <i class="bi bi-chevron-left text-white fs-5"></i>
                 </span>
                 <span class="visually-hidden">Previous</span>
             </button>
-            <button class="carousel-control-next related-products-control-next" type="button" data-bs-target="#relatedProductsCarousel" data-bs-slide="next">
-                <span class="d-flex align-items-center justify-content-center rounded-circle related-products-control-icon" aria-hidden="true">
+            <button class="carousel-control-next" type="button" data-bs-target="#relatedProductsCarouselTablet" data-bs-slide="next" style="right: 5px; width: auto;">
+                <span class="d-flex align-items-center justify-content-center rounded-circle" style="background-color: rgba(200, 200, 200, 0.8); width: 35px; height: 35px;" aria-hidden="true">
+                    <i class="bi bi-chevron-right text-white fs-5"></i>
+                </span>
+                <span class="visually-hidden">Next</span>
+            </button>
+            @endif
+        </div>
+
+        <!-- Desktop Carousel: 4 items per slide -->
+        <div id="relatedProductsCarouselDesktop" class="carousel slide position-relative related-products-carousel d-none d-lg-block" data-bs-ride="carousel" data-bs-interval="3000" style="padding: 0 50px;">
+            <div class="carousel-inner">
+                @foreach($relatedProducts->chunk(4) as $index => $chunk)
+                <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
+                    <div class="d-flex gap-3" style="justify-content: flex-start;">
+                        @foreach($chunk as $product)
+                        <div style="width: calc(25% - 9px); min-width: 160px;">
+                            <a href="{{ url('/products/' . $product->id) }}" class="text-decoration-none">
+                                <div class="card h-100 shadow-sm border-0" style="border-radius: 12px; overflow: hidden;">
+                                    <div style="position: relative; overflow: hidden;">
+                                        <img src="{{ $product->image ? asset('storage/'.$product->image) : asset('images/products/product-1.jpg') }}" 
+                                             class="card-img-top" 
+                                             style="height: 200px; object-fit: cover; transition: transform 0.3s ease;"
+                                             onmouseover="this.style.transform='scale(1.1)'"
+                                             onmouseout="this.style.transform='scale(1)'"
+                                             alt="{{ $product->name }}">
+                                        @if($product->is_best_seller)
+                                        <div style="position: absolute; top: 8px; right: 8px; background-color: #dc3545; color: white; padding: 4px 8px; border-radius: 5px; font-weight: bold; font-size: 0.75rem; z-index: 5;">
+                                            -{{ $product->discount_percent }}%
+                                        </div>
+                                        @endif
+                                        @if($product->weight)
+                                        <div style="position: absolute; bottom: 8px; right: 8px; z-index: 5;">
+                                            <small class="badge bg-info" style="font-size: 0.7rem;">
+                                                <i class="bi bi-box-seam"></i> {{ $product->weight }}
+                                            </small>
+                                        </div>
+                                        @endif
+                                    </div>
+                                    <div class="card-body p-3">
+                                        <h6 class="card-title mb-2" style="font-size: 0.9rem; line-height: 1.3; height: 2.6rem; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">{{ $product->name }}</h6>
+                                        <div class="text-end">
+                                            @if($product->is_best_seller)
+                                            <div class="mb-1">
+                                                <small class="text-muted text-decoration-line-through me-2" style="font-size: 0.75rem;">{{ number_format($product->price) }}₫</small>
+                                                <span class="text-danger fw-bold" style="font-size: 0.95rem;">{{ number_format($product->display_price) }}₫</span>
+                                            </div>
+                                            @else
+                                            <p class="text-dark fw-bold mb-1" style="font-size: 0.95rem;">{{ number_format($product->price) }}₫</p>
+                                            @endif
+                                            <div>
+                                                @if($product->quantity > 0)
+                                                    <small class="badge bg-success" style="font-size: 0.7rem;">Còn {{ $product->quantity }} sản phẩm</small>
+                                                @else
+                                                    <small class="badge bg-danger" style="font-size: 0.7rem;">Hết hàng</small>
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        @endforeach
+                    </div>
+                </div>
+                @endforeach
+            </div>
+            @if($relatedProducts->count() > 4)
+            <button class="carousel-control-prev" type="button" data-bs-target="#relatedProductsCarouselDesktop" data-bs-slide="prev" style="left: 5px; width: auto;">
+                <span class="d-flex align-items-center justify-content-center rounded-circle" style="background-color: rgba(200, 200, 200, 0.8); width: 35px; height: 35px;" aria-hidden="true">
+                    <i class="bi bi-chevron-left text-white fs-5"></i>
+                </span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#relatedProductsCarouselDesktop" data-bs-slide="next" style="right: 5px; width: auto;">
+                <span class="d-flex align-items-center justify-content-center rounded-circle" style="background-color: rgba(200, 200, 200, 0.8); width: 35px; height: 35px;" aria-hidden="true">
                     <i class="bi bi-chevron-right text-white fs-5"></i>
                 </span>
                 <span class="visually-hidden">Next</span>

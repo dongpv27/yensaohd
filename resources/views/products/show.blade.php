@@ -106,7 +106,10 @@
                 </div>
 
                 <!-- Quantity & Actions -->
-                <form action="/cart/add/{{ $product->id }}" method="POST" id="addToCartForm">
+                <form action="/cart/add/{{ $product->id }}" method="POST" id="addToCartForm" class="add-to-cart-form"
+                      data-product-name="{{ $product->name }}"
+                      data-product-image="{{ $product->image ?? asset('images/banners/logo.png') }}"
+                      data-product-price="{{ number_format($product->display_price, 0, ',', '.') }}">
                     @csrf
                     <div class="quantity-and-actions">
                         <div class="quantity-control">
@@ -221,7 +224,10 @@
                             </span>
                         </div>
                         @endif
-                        <form action="{{ url('/cart/add/' . $relatedProduct->id) }}" method="POST" class="add-to-cart-form d-inline" data-product-name="{{ $relatedProduct->name }}">
+                        <form action="{{ url('/cart/add/' . $relatedProduct->id) }}" method="POST" class="add-to-cart-form d-inline" 
+                              data-product-name="{{ $relatedProduct->name }}"
+                              data-product-image="{{ $relatedProduct->image ? asset('storage/'.$relatedProduct->image) : asset('images/products/product-1.jpg') }}"
+                              data-product-price="{{ number_format($relatedProduct->display_price ?? $relatedProduct->price, 0, ',', '.') }}">
                             @csrf
                             <input type="hidden" name="quantity" value="1">
                             <button type="submit" class="product-block-cart-icon">
@@ -279,17 +285,33 @@
             method: 'POST',
             body: formData,
             headers: {
-                'X-Requested-With': 'XMLHttpRequest'
+                'X-Requested-With': 'XMLHttpRequest',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
             }
         })
         .then(response => response.json())
         .then(data => {
-            // Redirect to checkout
-            window.location.href = '/checkout';
+            if (data.success) {
+                // Show success toast
+                if (typeof showCartToast === 'function') {
+                    showCartToast('success', {
+                        name: form.dataset.productName,
+                        image: form.dataset.productImage,
+                        price: form.dataset.productPrice
+                    });
+                }
+                // Redirect to checkout after a short delay
+                setTimeout(() => {
+                    window.location.href = '/checkout';
+                }, 500);
+            }
         })
         .catch(error => {
-            // If error, just redirect to checkout anyway
-            window.location.href = '/checkout';
+            console.error('Error:', error);
+            // Show error toast
+            if (typeof showCartToast === 'function') {
+                showCartToast('error', 'Có lỗi xảy ra. Vui lòng thử lại!');
+            }
         });
     }
 

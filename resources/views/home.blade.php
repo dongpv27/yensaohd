@@ -100,7 +100,7 @@
                     </div>
                     @endforeach
                 </div>
-                @if($bestSellers->count() > 4)
+                @if($bestSellers->count() > 2)
                 <button class="carousel-control-prev" type="button" data-bs-target="#bestSellerCarousel" data-bs-slide="prev" style="left: 5px; width: auto;">
                     <span class="d-flex align-items-center justify-content-center rounded-circle" style="background-color: rgba(200, 200, 200, 0.8); width: 35px; height: 35px;" aria-hidden="true">
                         <i class="bi bi-chevron-left text-white fs-5"></i>

@@ -2,6 +2,14 @@
 
 @section('content')
 <div class="container my-5">
+    <!-- Breadcrumb -->
+    <nav aria-label="breadcrumb" class="mb-4">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/" class="text-decoration-none">Trang chủ</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Giỏ hàng</li>
+        </ol>
+    </nav>
+
     <!-- Progress Breadcrumb -->
     <div class="checkout-progress">
         <ul class="progress-steps">
@@ -191,7 +199,7 @@
                     
                     <div class="cart-summary-row subtotal">
                         <span>Tạm tính</span>
-                        <span id="cart-subtotal" class="fw-bold">{{ number_format($subtotal, 0, ',', '.') }}₫</span>
+                        <span id="cart-subtotal" class="fw-bold text-danger">{{ number_format($subtotal, 0, ',', '.') }}₫</span>
                     </div>
                     
                     <div class="cart-summary-row shipping">
@@ -207,7 +215,7 @@
                     
                     <div class="cart-summary-row total">
                         <span>Tổng</span>
-                        <span id="cart-total">{{ number_format($total, 0, ',', '.') }}₫</span>
+                        <span id="cart-total" class="text-danger">{{ number_format($total, 0, ',', '.') }}₫</span>
                     </div>
                     
                     <a href="/checkout" class="cart-checkout-btn mt-4 d-block text-center text-decoration-none">

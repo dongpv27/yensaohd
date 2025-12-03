@@ -1,5 +1,31 @@
 /* Cart Page Styles */
 
+/* Breadcrumb Navigation */
+.breadcrumb {
+    background-color: transparent;
+    padding: 0;
+    margin-bottom: 1rem;
+}
+
+.breadcrumb-item a {
+    color: #d4af37;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.breadcrumb-item a:hover {
+    color: #FFB300;
+}
+
+.breadcrumb-item.active {
+    color: #6c757d;
+}
+
+.breadcrumb-item + .breadcrumb-item::before {
+    content: "/";
+    color: #6c757d;
+}
+
 /* Progress Breadcrumb */
 .checkout-progress {
     margin-bottom: 3rem;
@@ -460,7 +486,6 @@
     .item-subtotal-mobile {
         font-weight: bold;
         font-size: 1.05rem;
-        color: #ff0000;
     }
     
     .cart-summary-box {
