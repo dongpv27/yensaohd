@@ -21,10 +21,9 @@
             <div class="col-md-3 mb-4">
                 <h6 class="fw-bold mb-3">Chính Sách</h6>
                 <ul class="list-unstyled footer-links">
-                    <li><a href="#"><i class="bi bi-chevron-right me-1"></i>Hướng dẫn mua hàng</a></li>
-                    <li><a href="#"><i class="bi bi-chevron-right me-1"></i>Chính sách vận chuyển</a></li>
-                    <li><a href="#"><i class="bi bi-chevron-right me-1"></i>Chính sách kiểm hàng & đổi trả hàng</a></li>
-                    <li><a href="#"><i class="bi bi-chevron-right me-1"></i>Chính sách bảo mật</a></li>
+                    <li><a href="{{ route('shopping-guide') }}"><i class="bi bi-chevron-right me-1"></i>Hướng dẫn mua hàng</a></li>
+                    <li><a href="{{ route('shipping-policy') }}"><i class="bi bi-chevron-right me-1"></i>Chính sách vận chuyển</a></li>
+                    <li><a href="{{ route('return-policy') }}"><i class="bi bi-chevron-right me-1"></i>Chính sách kiểm hàng & đổi trả</a></li>
                 </ul>
             </div>
             

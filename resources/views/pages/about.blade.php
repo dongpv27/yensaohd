@@ -173,14 +173,18 @@
                         $bestSellerProducts = App\Models\Product::where('is_best_seller', true)
                             ->take(12)
                             ->get();
-                        $chunks = $bestSellerProducts->chunk(4);
+                        // Desktop: 4 products, Tablet: 3 products, Mobile: 2 products
+                        $desktopChunks = $bestSellerProducts->chunk(4);
+                        $tabletChunks = $bestSellerProducts->chunk(3);
+                        $mobileChunks = $bestSellerProducts->chunk(2);
                     @endphp
 
-                    @forelse($chunks as $index => $chunk)
-                    <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
+                    {{-- Desktop slides --}}
+                    @forelse($desktopChunks as $index => $chunk)
+                    <div class="carousel-item {{ $index === 0 ? 'active' : '' }} d-none d-lg-block">
                         <div class="row g-4">
                             @foreach($chunk as $product)
-                            <div class="col-lg-3 col-md-6">
+                            <div class="col-lg-3">
                                 <div class="card border-0 shadow-sm h-100" style="border-radius: 15px; overflow: hidden; transition: transform 0.3s;">
                                     <div class="position-relative" style="height: 250px; overflow: hidden;">
                                         <img src="{{ $product->image ? asset('storage/'.$product->image) : asset('images/products/product-1.jpg') }}" 
@@ -242,9 +246,123 @@
                         </div>
                     </div>
                     @endforelse
+                    
+                    {{-- Tablet slides --}}
+                    @forelse($tabletChunks as $index => $chunk)
+                    <div class="carousel-item {{ $index === 0 ? 'active' : '' }} d-none d-md-block d-lg-none">
+                        <div class="row g-4">
+                            @foreach($chunk as $product)
+                            <div class="col-md-4">
+                                <div class="card border-0 shadow-sm h-100" style="border-radius: 15px; overflow: hidden; transition: transform 0.3s;">
+                                    <div class="position-relative" style="height: 250px; overflow: hidden;">
+                                        <img src="{{ $product->image ? asset('storage/'.$product->image) : asset('images/products/product-1.jpg') }}" 
+                                             class="card-img-top w-100 h-100" 
+                                             style="object-fit: cover; cursor: pointer;"
+                                             alt="{{ $product->name }}"
+                                             onclick="window.location.href='{{ url('/products/' . $product->id) }}'">
+                                        @if($product->is_best_seller)
+                                        <span class="position-absolute top-0 start-0 m-3 badge bg-danger">-{{ $product->discount_percent }}%</span>
+                                        @endif
+                                        @if($product->weight)
+                                        <span class="position-absolute bottom-0 end-0 m-3 badge bg-success">
+                                            <i class="bi bi-box-seam me-1"></i>{{ $product->weight }}
+                                        </span>
+                                        @endif
+                                    </div>
+                                    <div class="card-body">
+                                        <h5 class="card-title mb-3" style="cursor: pointer; min-height: 48px;" onclick="window.location.href='{{ url('/products/' . $product->id) }}'">
+                                            {{ $product->name }}
+                                        </h5>
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div>
+                                                @if($product->is_best_seller)
+                                                <div>
+                                                    <span class="text-muted text-decoration-line-through d-block" style="font-size: 0.9rem;">
+                                                        {{ number_format($product->original_price ?? $product->price) }}₫
+                                                    </span>
+                                                    <span class="text-danger fw-bold fs-5">
+                                                        {{ number_format($product->display_price) }}₫
+                                                    </span>
+                                                </div>
+                                                @else
+                                                <span class="fw-bold fs-5" style="color: #936f03;">
+                                                    {{ number_format($product->price) }}₫
+                                                </span>
+                                                @endif
+                                            </div>
+                                            <form action="{{ url('/cart/add/' . $product->id) }}" method="POST" class="add-to-cart-form"
+                                                  data-product-name="{{ $product->name }}"
+                                                  data-product-image="{{ $product->image ? asset('storage/'.$product->image) : asset('images/products/product-1.jpg') }}"
+                                                  data-product-price="{{ number_format($product->display_price ?? $product->price, 0, ',', '.') }}">
+                                                @csrf
+                                                <input type="hidden" name="quantity" value="1">
+                                                <button type="submit" class="btn btn-sm" style="background: #936f03; color: white; border-radius: 50%; width: 40px; height: 40px;">
+                                                    <i class="bi bi-cart-plus"></i>
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            @endforeach
+                        </div>
+                    </div>
+                    @empty
+                    @endforelse
+                    
+                    {{-- Mobile slides --}}
+                    @forelse($mobileChunks as $index => $chunk)
+                    <div class="carousel-item {{ $index === 0 ? 'active' : '' }} d-block d-md-none">
+                        <div class="row g-4">
+                            @foreach($chunk as $product)
+                            <div class="col-6">
+                                <div class="card border-0 shadow-sm h-100" style="border-radius: 15px; overflow: hidden; transition: transform 0.3s;">
+                                    <div class="position-relative" style="height: 200px; overflow: hidden;">
+                                        <img src="{{ $product->image ? asset('storage/'.$product->image) : asset('images/products/product-1.jpg') }}" 
+                                             class="card-img-top w-100 h-100" 
+                                             style="object-fit: cover; cursor: pointer;"
+                                             alt="{{ $product->name }}"
+                                             onclick="window.location.href='{{ url('/products/' . $product->id) }}'">
+                                        @if($product->is_best_seller)
+                                        <span class="position-absolute top-0 start-0 m-2 badge bg-danger">-{{ $product->discount_percent }}%</span>
+                                        @endif
+                                        @if($product->weight)
+                                        <span class="position-absolute bottom-0 end-0 m-2 badge bg-success" style="font-size: 0.7rem;">
+                                            <i class="bi bi-box-seam me-1"></i>{{ $product->weight }}
+                                        </span>
+                                        @endif
+                                    </div>
+                                    <div class="card-body p-2">
+                                        <h6 class="card-title mb-2" style="cursor: pointer; min-height: 38px; font-size: 0.85rem;" onclick="window.location.href='{{ url('/products/' . $product->id) }}'">
+                                            {{ $product->name }}
+                                        </h6>
+                                        <div class="text-end">
+                                            @if($product->is_best_seller)
+                                            <div>
+                                                <small class="text-muted text-decoration-line-through d-block" style="font-size: 0.75rem;">
+                                                    {{ number_format($product->original_price ?? $product->price) }}₫
+                                                </small>
+                                                <span class="text-danger fw-bold" style="font-size: 0.9rem;">
+                                                    {{ number_format($product->display_price) }}₫
+                                                </span>
+                                            </div>
+                                            @else
+                                            <span class="fw-bold" style="color: #936f03; font-size: 0.9rem;">
+                                                {{ number_format($product->price) }}₫
+                                            </span>
+                                            @endif
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            @endforeach
+                        </div>
+                    </div>
+                    @empty
+                    @endforelse
                 </div>
 
-                @if($chunks->count() > 1)
+                @if($desktopChunks->count() > 1)
                 <button class="carousel-control-prev" type="button" data-bs-target="#productsCarousel" data-bs-slide="prev">
                     <span class="carousel-control-prev-icon bg-dark rounded-circle p-3" aria-hidden="true"></span>
                     <span class="visually-hidden">Previous</span>
@@ -255,7 +373,7 @@
                 </button>
 
                 <div class="carousel-indicators position-static mt-4">
-                    @foreach($chunks as $index => $chunk)
+                    @foreach($desktopChunks as $index => $chunk)
                     <button type="button" data-bs-target="#productsCarousel" data-bs-slide-to="{{ $index }}" 
                             class="{{ $index === 0 ? 'active' : '' }}" 
                             style="background: #936f03; width: 12px; height: 12px; border-radius: 50%;">

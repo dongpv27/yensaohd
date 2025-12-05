@@ -46,6 +46,19 @@ Route::get('/about', function () {
     return view('pages.about');
 });
 
+// Policy Pages
+Route::get('/shopping-guide', function () {
+    return view('pages.shopping-guide');
+})->name('shopping-guide');
+
+Route::get('/shipping-policy', function () {
+    return view('pages.shipping-policy');
+})->name('shipping-policy');
+
+Route::get('/return-policy', function () {
+    return view('pages.return-policy');
+})->name('return-policy');
+
 // Cart
 Route::get('/cart', [CartController::class, 'index']);
 Route::post('/cart/add/{product}', [CartController::class, 'add']);
