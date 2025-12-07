@@ -62,7 +62,7 @@
                              class="header-logo">
                     
                         <div class="d-flex flex-column header-brand-text ms-2">
-                            <div class="header-brand-name" style="font-size: 1rem; font-weight: bold;">YẾN SÀO HOÀNG ĐĂNG</div>
+                            <div class="header-brand-name" style="font-size: 1rem; font-weight: bold; text-transform: uppercase;">{{ config('shop.name') }}</div>
                         </div>
                     </a>
                 </div>
@@ -85,11 +85,11 @@
                     </button>
 
                     <!-- Phone (hidden on mobile) -->
-                    <a href="tel:0900000000" class="text-white d-none d-md-flex align-items-center text-decoration-none">
+                    <a href="tel:{{ str_replace(' ', '', config('shop.phone')) }}" class="text-white d-none d-md-flex align-items-center text-decoration-none">
                         <span class="material-icons-outlined text-white header-icon">phone</span>
                         <div class="d-none d-lg-block ms-2">
                             <div class="fw-medium">Hỗ Trợ Khách Hàng</div>
-                            <div class="header-phone-text">0900 000 000</div>
+                            <div class="header-phone-text">{{ config('shop.phone') }}</div>
                         </div>
                     </a>
 

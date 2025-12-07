@@ -9,7 +9,7 @@
                 <div class="col-lg-6 text-white mb-4 mb-lg-0">
                     <h1 class="fw-bold mb-4" style="font-size: 2.8rem;">VỀ CHÚNG TÔI</h1>
                     <p class="lead mb-4" style="font-size: 1.2rem;">
-                        Yến Sào Hoàng Đăng - Hành trình mang đến sản phẩm yến sào thiên nhiên cao cấp, 
+                        {{ config('shop.name') }} - Hành trình mang đến sản phẩm yến sào thiên nhiên cao cấp, 
                         uy tín và chất lượng.
                     </p>
                     <div class="d-flex align-items-center gap-4 mt-4">
@@ -49,7 +49,7 @@
                                 <h3 class="mb-0 fw-bold" style="color: #936f03;">Câu Chuyện Của Chúng Tôi</h3>
                             </div>
                             <p class="text-muted mb-3" style="line-height: 1.8;">
-                                <strong>Yến Sào Hoàng Đăng</strong> khởi nguồn từ niềm đam mê và tâm huyết 
+                                <strong>{{ config('shop.name') }}</strong> khởi nguồn từ niềm đam mê và tâm huyết 
                                 với sản phẩm yến sào thiên nhiên cao cấp. Chúng tôi tự hào là một trong những đơn vị trong việc cung cấp yến sào nguyên chất, không pha trộn, đạt tiêu chuẩn chất lượng.
                             </p>
                             <p class="text-muted mb-0" style="line-height: 1.8;">
@@ -102,7 +102,7 @@
                 <h2 class="fw-bold mb-3" style="color: #936f03;">
                     <i class="bi bi-gem me-2"></i>GIÁ TRỊ CỐT LÕII
                 </h2>
-                <p class="text-muted">Những giá trị làm nên thương hiệu <strong>Yến Sào Hoàng Đăng</strong></p>
+                <p class="text-muted">Những giá trị làm nên thương hiệu <strong>{{ config('shop.name') }}</strong></p>
             </div>
 
             <div class="row g-4">
@@ -167,24 +167,23 @@
                 <p class="text-muted">Những sản phẩm yến sào cao cấp được khách hàng yêu thích nhất</p>
             </div>
 
-            <div id="productsCarousel" class="carousel slide" data-bs-ride="carousel">
-                <div class="carousel-inner">
-                    @php
-                        $bestSellerProducts = App\Models\Product::where('is_best_seller', true)
-                            ->take(12)
-                            ->get();
-                        // Desktop: 4 products, Tablet: 3 products, Mobile: 2 products
-                        $desktopChunks = $bestSellerProducts->chunk(4);
-                        $tabletChunks = $bestSellerProducts->chunk(3);
-                        $mobileChunks = $bestSellerProducts->chunk(2);
-                    @endphp
+            @php
+                $bestSellerProducts = App\Models\Product::where('is_best_seller', true)
+                    ->take(12)
+                    ->get();
+                $desktopChunks = $bestSellerProducts->chunk(4);
+                $tabletChunks = $bestSellerProducts->chunk(3);
+                $mobileChunks = $bestSellerProducts->chunk(2);
+            @endphp
 
-                    {{-- Desktop slides --}}
+            <!-- Desktop Carousel (4 products per slide) -->
+            <div id="productsCarouselDesktop" class="carousel slide d-none d-lg-block" data-bs-ride="carousel" data-bs-interval="4000">
+                <div class="carousel-inner">
                     @forelse($desktopChunks as $index => $chunk)
-                    <div class="carousel-item {{ $index === 0 ? 'active' : '' }} d-none d-lg-block">
+                    <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
                         <div class="row g-4">
                             @foreach($chunk as $product)
-                            <div class="col-lg-3">
+                            <div class="col-3">
                                 <div class="card border-0 shadow-sm h-100" style="border-radius: 15px; overflow: hidden; transition: transform 0.3s;">
                                     <div class="position-relative" style="height: 250px; overflow: hidden;">
                                         <img src="{{ $product->image ? asset('storage/'.$product->image) : asset('images/products/product-1.jpg') }}" 
@@ -246,13 +245,28 @@
                         </div>
                     </div>
                     @endforelse
-                    
-                    {{-- Tablet slides --}}
+                </div>
+
+                @if($desktopChunks->count() > 1)
+                <button class="carousel-control-prev" type="button" data-bs-target="#productsCarouselDesktop" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon bg-dark rounded-circle p-3" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#productsCarouselDesktop" data-bs-slide="next">
+                    <span class="carousel-control-next-icon bg-dark rounded-circle p-3" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+                @endif
+            </div>
+
+            <!-- Tablet Carousel (3 products per slide) -->
+            <div id="productsCarouselTablet" class="carousel slide d-none d-md-block d-lg-none" data-bs-ride="carousel" data-bs-interval="4000">
+                <div class="carousel-inner">
                     @forelse($tabletChunks as $index => $chunk)
-                    <div class="carousel-item {{ $index === 0 ? 'active' : '' }} d-none d-md-block d-lg-none">
+                    <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
                         <div class="row g-4">
                             @foreach($chunk as $product)
-                            <div class="col-md-4">
+                            <div class="col-4">
                                 <div class="card border-0 shadow-sm h-100" style="border-radius: 15px; overflow: hidden; transition: transform 0.3s;">
                                     <div class="position-relative" style="height: 250px; overflow: hidden;">
                                         <img src="{{ $product->image ? asset('storage/'.$product->image) : asset('images/products/product-1.jpg') }}" 
@@ -308,49 +322,81 @@
                         </div>
                     </div>
                     @empty
+                    <div class="carousel-item active">
+                        <div class="text-center py-5">
+                            <p class="text-muted">Chưa có sản phẩm</p>
+                        </div>
+                    </div>
                     @endforelse
-                    
-                    {{-- Mobile slides --}}
+                </div>
+
+                @if($tabletChunks->count() > 1)
+                <button class="carousel-control-prev" type="button" data-bs-target="#productsCarouselTablet" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon bg-dark rounded-circle p-3" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#productsCarouselTablet" data-bs-slide="next">
+                    <span class="carousel-control-next-icon bg-dark rounded-circle p-3" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+                @endif
+            </div>
+
+            <!-- Mobile Carousel (2 products per slide) -->
+            <div id="productsCarouselMobile" class="carousel slide d-md-none" data-bs-ride="carousel" data-bs-interval="4000">
+                <div class="carousel-inner">
                     @forelse($mobileChunks as $index => $chunk)
-                    <div class="carousel-item {{ $index === 0 ? 'active' : '' }} d-block d-md-none">
+                    <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
                         <div class="row g-4">
                             @foreach($chunk as $product)
                             <div class="col-6">
                                 <div class="card border-0 shadow-sm h-100" style="border-radius: 15px; overflow: hidden; transition: transform 0.3s;">
-                                    <div class="position-relative" style="height: 200px; overflow: hidden;">
+                                    <div class="position-relative" style="height: 250px; overflow: hidden;">
                                         <img src="{{ $product->image ? asset('storage/'.$product->image) : asset('images/products/product-1.jpg') }}" 
                                              class="card-img-top w-100 h-100" 
                                              style="object-fit: cover; cursor: pointer;"
                                              alt="{{ $product->name }}"
                                              onclick="window.location.href='{{ url('/products/' . $product->id) }}'">
                                         @if($product->is_best_seller)
-                                        <span class="position-absolute top-0 start-0 m-2 badge bg-danger">-{{ $product->discount_percent }}%</span>
+                                        <span class="position-absolute top-0 start-0 m-3 badge bg-danger">-{{ $product->discount_percent }}%</span>
                                         @endif
                                         @if($product->weight)
-                                        <span class="position-absolute bottom-0 end-0 m-2 badge bg-success" style="font-size: 0.7rem;">
+                                        <span class="position-absolute bottom-0 end-0 m-3 badge bg-success">
                                             <i class="bi bi-box-seam me-1"></i>{{ $product->weight }}
                                         </span>
                                         @endif
                                     </div>
-                                    <div class="card-body p-2">
-                                        <h6 class="card-title mb-2" style="cursor: pointer; min-height: 38px; font-size: 0.85rem;" onclick="window.location.href='{{ url('/products/' . $product->id) }}'">
+                                    <div class="card-body">
+                                        <h5 class="card-title mb-3" style="cursor: pointer; min-height: 48px;" onclick="window.location.href='{{ url('/products/' . $product->id) }}'">
                                             {{ $product->name }}
-                                        </h6>
-                                        <div class="text-end">
-                                            @if($product->is_best_seller)
+                                        </h5>
+                                        <div class="d-flex justify-content-between align-items-center">
                                             <div>
-                                                <small class="text-muted text-decoration-line-through d-block" style="font-size: 0.75rem;">
-                                                    {{ number_format($product->original_price ?? $product->price) }}₫
-                                                </small>
-                                                <span class="text-danger fw-bold" style="font-size: 0.9rem;">
-                                                    {{ number_format($product->display_price) }}₫
+                                                @if($product->is_best_seller)
+                                                <div>
+                                                    <span class="text-muted text-decoration-line-through d-block" style="font-size: 0.9rem;">
+                                                        {{ number_format($product->original_price ?? $product->price) }}₫
+                                                    </span>
+                                                    <span class="text-danger fw-bold fs-5">
+                                                        {{ number_format($product->display_price) }}₫
+                                                    </span>
+                                                </div>
+                                                @else
+                                                <span class="fw-bold fs-5" style="color: #936f03;">
+                                                    {{ number_format($product->price) }}₫
                                                 </span>
+                                                @endif
                                             </div>
-                                            @else
-                                            <span class="fw-bold" style="color: #936f03; font-size: 0.9rem;">
-                                                {{ number_format($product->price) }}₫
-                                            </span>
-                                            @endif
+                                            <form action="{{ url('/cart/add/' . $product->id) }}" method="POST" class="add-to-cart-form"
+                                                  data-product-name="{{ $product->name }}"
+                                                  data-product-image="{{ $product->image ? asset('storage/'.$product->image) : asset('images/products/product-1.jpg') }}"
+                                                  data-product-price="{{ number_format($product->display_price ?? $product->price, 0, ',', '.') }}">
+                                                @csrf
+                                                <input type="hidden" name="quantity" value="1">
+                                                <button type="submit" class="btn btn-sm" style="background: #936f03; color: white; border-radius: 50%; width: 40px; height: 40px;">
+                                                    <i class="bi bi-cart-plus"></i>
+                                                </button>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
@@ -359,27 +405,23 @@
                         </div>
                     </div>
                     @empty
+                    <div class="carousel-item active">
+                        <div class="text-center py-5">
+                            <p class="text-muted">Chưa có sản phẩm</p>
+                        </div>
+                    </div>
                     @endforelse
                 </div>
 
-                @if($desktopChunks->count() > 1)
-                <button class="carousel-control-prev" type="button" data-bs-target="#productsCarousel" data-bs-slide="prev">
+                @if($mobileChunks->count() > 1)
+                <button class="carousel-control-prev" type="button" data-bs-target="#productsCarouselMobile" data-bs-slide="prev">
                     <span class="carousel-control-prev-icon bg-dark rounded-circle p-3" aria-hidden="true"></span>
                     <span class="visually-hidden">Previous</span>
                 </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#productsCarousel" data-bs-slide="next">
+                <button class="carousel-control-next" type="button" data-bs-target="#productsCarouselMobile" data-bs-slide="next">
                     <span class="carousel-control-next-icon bg-dark rounded-circle p-3" aria-hidden="true"></span>
                     <span class="visually-hidden">Next</span>
                 </button>
-
-                <div class="carousel-indicators position-static mt-4">
-                    @foreach($desktopChunks as $index => $chunk)
-                    <button type="button" data-bs-target="#productsCarousel" data-bs-slide-to="{{ $index }}" 
-                            class="{{ $index === 0 ? 'active' : '' }}" 
-                            style="background: #936f03; width: 12px; height: 12px; border-radius: 50%;">
-                    </button>
-                    @endforeach
-                </div>
                 @endif
             </div>
         </div>

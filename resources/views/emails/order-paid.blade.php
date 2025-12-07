@@ -130,7 +130,7 @@
         </div>
         
         <div style="text-align: center; margin-top: 20px; color: #666; font-size: 12px;">
-            <p>Email tự động từ hệ thống Yến Sào Hoàng Đăng</p>
+            <p>Email tự động từ hệ thống {{ config('shop.name') }}</p>
         </div>
     </div>
 </body>

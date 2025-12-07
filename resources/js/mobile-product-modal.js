@@ -307,9 +307,15 @@
                         
                         // Update cart count badge
                         const cartBadge = document.getElementById('cart-count-badge');
-                        if (cartBadge && data.cartCount) {
-                            cartBadge.textContent = data.cartCount;
+                        if (cartBadge && data.cart_count) {
+                            cartBadge.textContent = data.cart_count;
                             cartBadge.classList.remove('d-none');
+                        }
+                        
+                        // Update cart dropdown HTML
+                        const cartDropdownContent = document.getElementById('cart-dropdown-content');
+                        if (cartDropdownContent && data.cart_html) {
+                            cartDropdownContent.innerHTML = data.cart_html;
                         }
                         
                         // Close modal

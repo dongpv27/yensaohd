@@ -116,7 +116,6 @@
                             <ul>
                                 <li>Nội thành TP.HCM: Đội ngũ giao hàng của {{ config('shop.name') }}</li>
                                 <li>Ngoại tỉnh: Liên kết với các đơn vị vận chuyển uy tín (Giao Hàng Nhanh, Giao Hàng Tiết Kiệm, Viettel Post, J&T Express)</li>
-                                <li>Sản phẩm cần bảo quản lạnh: Vận chuyển đường hàng không (4-6 giờ)</li>
                             </ul>
                         </div>
                     </div>

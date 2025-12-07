@@ -16,12 +16,14 @@ export default defineConfig({
                 'resources/css/responsive.css',
                 'resources/css/utilities.css',
                 'resources/css/news.css',
+                'resources/css/mobile-product-modal.css',
+                'resources/css/promotion-carousel.css',
                 'resources/js/app.js',
                 'resources/js/bootstrap.js',
                 'resources/js/header.js',
                 'resources/js/footer.js',
-                'resources/js/cart-toast.js'
-
+                'resources/js/cart-toast.js',
+                'resources/js/mobile-product-modal.js'
             ],
             refresh: true,
         }),

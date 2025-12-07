@@ -17,7 +17,7 @@
             <!-- Description -->
             <div class="col-12 mb-5">
                 <p class="text-center px-md-5 mx-auto yen-tho-description">
-                    Yến tinh chế là tổ yến đã được làm sạch hoàn toàn, loại bỏ lông, tạp chất và các thành phần không cần thiết. Để tạo ra các sản phẩm yến tinh chế đạt chuẩn chất lượng, Yến Sào Hoàng Đăng rất nghiêm ngặt trong quy trình chế biến với 4 bước chi tiết, đảm bảo giữ nguyên giá trị dinh dưỡng nhưng tiện lợi hơn rất nhiều khi sử dụng.
+                    Yến tinh chế là tổ yến đã được làm sạch hoàn toàn, loại bỏ lông, tạp chất và các thành phần không cần thiết. Để tạo ra các sản phẩm yến tinh chế đạt chuẩn chất lượng, {{ config('shop.name') }} rất nghiêm ngặt trong quy trình chế biến với 4 bước chi tiết, đảm bảo giữ nguyên giá trị dinh dưỡng nhưng tiện lợi hơn rất nhiều khi sử dụng.
                 </p>
             </div>
 
@@ -83,7 +83,7 @@
             <!-- Quy Trình Làm Yến Tinh Chế -->
             <div class="col-12 mb-5">
                 <div class="yen-tho-section-title-wrapper mb-4">
-                    <h4 class="fw-bold yen-tho-features-title">QUY TRÌNH LÀM YẾN TINH CHẾ TẠI YẾN SÀO HOÀNG ĐĂNG</h4>
+                    <h4 class="fw-bold yen-tho-features-title" style="text-transform: uppercase;">QUY TRÌNH LÀM YẾN TINH CHẾ TẠI {{ config('shop.name') }}</h4>
                 </div>
                 <div class="row g-4 px-md-3">
                     <div class="col-md-6">

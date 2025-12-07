@@ -43,7 +43,7 @@
                 <!-- Trust Banner -->
                 <div class="trust-banner">
                     <i class="bi bi-shield-check"></i>
-                    Yến Sào Hoàng Đăng luôn đảm bảo 100% TỔ YẾN NGUYÊN CHẤT và KHÔNG PHA, TẨM DƯỠNG.
+                    {{ config('shop.name') }} luôn đảm bảo 100% TỔ YẾN NGUYÊN CHẤT và KHÔNG PHA, TẨM DƯỠNG.
                 </div>
             </div>
         </div>
@@ -137,10 +137,10 @@
 
                 <!-- Contact Buttons -->
                 <div class="contact-buttons">
-                    <a href="tel:090.995.8878" class="btn-contact btn-phone">
-                        <i class="bi bi-telephone-fill"></i> 090.995.8878
+                    <a href="tel:{{ str_replace(' ', '', config('shop.phone')) }}" class="btn-contact btn-phone">
+                        <i class="bi bi-telephone-fill"></i> {{ config('shop.phone') }}
                     </a>
-                    <a href="https://zalo.me/0909958878" target="_blank" class="btn-contact btn-zalo">
+                    <a href="{{ config('shop.social.zalo') }}" target="_blank" class="btn-contact btn-zalo">
                         <i class="bi bi-chat-dots-fill"></i> ZALO
                     </a>
                 </div>

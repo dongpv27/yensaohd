@@ -29,7 +29,7 @@
                     </p>
 
                     <!-- Cách 1 -->
-                    <div class="mb-5">
+                    <!-- <div class="mb-5">
                         <h3 class="fw-bold mb-3" style="color: #936f03;">
                             <span class="badge bg-warning text-dark me-2">1</span>
                             Mua hàng trực tiếp tại cửa hàng
@@ -46,12 +46,12 @@
                                 <i class="bi bi-clock me-2"></i>Giờ làm việc: 8:00 - 20:00 (Tất cả các ngày trong tuần)
                             </p>
                         </div>
-                    </div>
+                    </div> -->
 
                     <!-- Cách 2 -->
                     <div class="mb-5">
                         <h3 class="fw-bold mb-3" style="color: #936f03;">
-                            <span class="badge bg-warning text-dark me-2">2</span>
+                            <span class="badge bg-warning text-dark me-2">1</span>
                             Đặt hàng qua Hotline
                         </h3>
                         <div class="ms-4">
@@ -74,7 +74,7 @@
                     <!-- Cách 3 -->
                     <div class="mb-5">
                         <h3 class="fw-bold mb-3" style="color: #936f03;">
-                            <span class="badge bg-warning text-dark me-2">3</span>
+                            <span class="badge bg-warning text-dark me-2">2</span>
                             Đặt mua hàng Online trên Website
                         </h3>
                         <div class="ms-4">
