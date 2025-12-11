@@ -23,6 +23,7 @@ export default defineConfig({
                 'resources/js/header.js',
                 'resources/js/footer.js',
                 'resources/js/cart-toast.js',
+                'resources/js/cart-ajax.js',
                 'resources/js/mobile-product-modal.js'
             ],
             refresh: true,

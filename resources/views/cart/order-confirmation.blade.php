@@ -158,13 +158,22 @@
                         </div>
 
                         @if($payment_method === 'online')
-                        <div class="alert alert-warning mt-3">
-                            <h6 class="alert-heading">
-                                <i class="bi bi-exclamation-triangle me-2"></i>
-                                Vui lòng hoàn tất thanh toán
-                            </h6>
-                            
-                            @if($online_method === 'bank')
+                            @if($online_method === 'vnpay')
+                            <div class="alert alert-success mt-3">
+                                <h6 class="alert-heading">
+                                    <i class="bi bi-check-circle me-2"></i>
+                                    Thanh toán thành công qua VNPay
+                                </h6>
+                                <p class="mb-1"><strong>Mã giao dịch:</strong> {{ $transaction_id ?? 'N/A' }}</p>
+                                <p class="mb-1"><strong>Số tiền:</strong> <span class="text-danger">{{ number_format($order->total, 0, ',', '.') }}₫</span></p>
+                                <p class="mb-0"><strong>Trạng thái:</strong> <span class="badge bg-success">Đã thanh toán</span></p>
+                            </div>
+                            @elseif($online_method === 'bank')
+                            <div class="alert alert-warning mt-3">
+                                <h6 class="alert-heading">
+                                    <i class="bi bi-exclamation-triangle me-2"></i>
+                                    Vui lòng hoàn tất thanh toán
+                                </h6>
                             <div class="text-center mb-3">
                                 <img src="https://img.vietqr.io/image/{{ config('shop.bank.bank_code') }}-{{ config('shop.bank.account_number') }}-compact2.png?amount={{ $order->total }}&addInfo={{ $order->order_number }}&accountName={{ urlencode(config('shop.bank.account_name')) }}" 
                                      alt="QR Code" 
@@ -180,18 +189,6 @@
                                 <p class="mb-1">Số tiền: <strong class="text-danger">{{ number_format($order->total, 0, ',', '.') }}₫</strong></p>
                                 <p class="mb-0">Nội dung: <strong>{{ $order->order_number }}</strong></p>
                             </div>
-                            
-                            @elseif($online_method === 'vnpay')
-                            <div class="alert alert-success">
-                                <h6 class="alert-heading">
-                                    <i class="bi bi-check-circle me-2"></i>
-                                    Thanh toán thành công qua VNPay
-                                </h6>
-                                <p class="mb-1"><strong>Mã giao dịch:</strong> {{ $transaction_id ?? 'N/A' }}</p>
-                                <p class="mb-1"><strong>Số tiền:</strong> <span class="text-success">{{ number_format($order->total, 0, ',', '.') }}₫</span></p>
-                                <p class="mb-0"><strong>Trạng thái:</strong> <span class="badge bg-success">Đã thanh toán</span></p>
-                            </div>
-                            @endif
 
                             <div class="mt-3">
                                 <small class="text-danger">
@@ -199,7 +196,8 @@
                                     Đơn hàng sẽ được xử lý sau khi chúng tôi xác nhận thanh toán của bạn.
                                 </small>
                             </div>
-                        </div>
+                            </div>
+                            @endif
                         @else
                         <div class="alert alert-info mt-3">
                             <p class="mb-0">

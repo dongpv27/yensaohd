@@ -57,26 +57,37 @@ function showCartToast(type, data) {
     });
 }
 
-// Handle add to cart forms with AJAX
+// Handle add to cart forms with AJAX using event delegation
 function initializeCartForms() {
-    const cartForms = document.querySelectorAll('.add-to-cart-form');
+    // Remove old event listener if exists
+    if (window._cartFormHandler) {
+        document.removeEventListener('submit', window._cartFormHandler);
+    }
     
-    cartForms.forEach(form => {
-        // Remove existing listeners to avoid duplication
-        form.removeEventListener('submit', handleCartFormSubmit);
-        form.addEventListener('submit', handleCartFormSubmit);
-    });
+    // Create new handler
+    window._cartFormHandler = function(e) {
+        // Check if the submitted form is an add-to-cart form
+        if (e.target.classList.contains('add-to-cart-form')) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            console.log('Add to cart form submitted via AJAX');
+            
+            const form = e.target;
+            const formData = new FormData(form);
+            const productName = form.dataset.productName;
+            const productImage = form.dataset.productImage;
+            const productPrice = form.dataset.productPrice;
+            
+            handleCartFormSubmit(form, formData, productName, productImage, productPrice);
+        }
+    };
+    
+    // Attach event listener to document
+    document.addEventListener('submit', window._cartFormHandler);
 }
 
-function handleCartFormSubmit(e) {
-    e.preventDefault();
-    e.stopPropagation();
-    
-    const form = e.target;
-    const formData = new FormData(form);
-    const productName = form.dataset.productName;
-    const productImage = form.dataset.productImage;
-    const productPrice = form.dataset.productPrice;
+function handleCartFormSubmit(form, formData, productName, productImage, productPrice) {
     
     fetch(form.action, {
         method: 'POST',
@@ -123,11 +134,14 @@ function handleCartFormSubmit(e) {
     });
 }
 
-// Initialize when DOM is ready
-document.addEventListener('DOMContentLoaded', function() {
-    initializeCartForms();
-});
-
-// Make functions globally available
+// Make functions globally available first
 window.showCartToast = showCartToast;
 window.initializeCartForms = initializeCartForms;
+
+// Initialize when DOM is ready
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initializeCartForms);
+} else {
+    // DOM is already ready
+    initializeCartForms();
+}

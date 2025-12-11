@@ -10,9 +10,9 @@ return [
     // Thông tin ngân hàng
     'bank' => [
         'bank_name' => 'Vietcombank',
-        'bank_code' => 'VCB',
-        'account_number' => '1234567890',
-        'account_name' => 'CONG TY YEN SAO HOANG DANG',
+        'bank_code' => 'NCB',
+        'account_number' => '9704198526191432198',
+        'account_name' => 'NGUYEN VAN A',
     ],
     
     // Mạng xã hội

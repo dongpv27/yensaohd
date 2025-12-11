@@ -17,24 +17,24 @@
                         <p class="lead">Chất lượng từ tâm</p>
                     </div>
                 </div>
-            <div class="carousel-item">
-                <img src="{{ asset('images/banners/slide2.jpg') }}" class="d-block w-100" alt="...">
-            </div>
-            <div class="carousel-item">
-                <img src="{{ asset('images/banners/slide3.jpg') }}" class="d-block w-100" alt="...">
+                <div class="carousel-item">
+                    <img src="{{ asset('images/banners/slide2.jpg') }}" class="d-block w-100" alt="...">
+                </div>
+                <div class="carousel-item">
+                    <img src="{{ asset('images/banners/slide3.jpg') }}" class="d-block w-100" alt="...">
+                </div>
             </div>
         </div>
     </div>
 
     <!-- Sản phẩm bán chạy -->
-    <section class="mb-5 position-relative best-seller-section">
-        <div class="container-fluid px-4">
+    <div class="container">
+        <section class="mb-5 position-relative best-seller-section">
             <h2 class="mb-3 fw-bold text-start best-seller-title">
                 <i class="bi bi-fire"></i> Sản Phẩm Bán Chạy
             </h2>
-        </div>
-        <hr class="mb-4 mx-0 best-seller-divider">
-        <div class="container">
+            <hr class="mb-4 best-seller-divider">
+            
             <div id="bestSellerCarousel" class="carousel slide position-relative best-seller-carousel" data-bs-ride="carousel" data-bs-interval="4000" style="padding: 0 50px;">
                 <!-- Carousel Indicators -->
                 <!-- <div class="carousel-indicators">
@@ -115,8 +115,8 @@
                 </button>
                 @endif
             </div>
-        </div>
-    </section>
+        </section>
+    </div>
 
     <!-- Info Block with Carousel -->
     <section class="mb-5 py-5 info-section">
@@ -594,3 +594,23 @@
 @include('partials.mobile-product-modal')
 
 @endsection
+
+@push('scripts')
+<script>
+// Product clickable areas
+document.querySelectorAll('.product-clickable').forEach(clickable => {
+    clickable.addEventListener('click', function(e) {
+        if (e.target.closest('form') || e.target.closest('button')) {
+            return;
+        }
+        
+        const card = this.closest('.product-block-card');
+        const productId = card.dataset.productId;
+        
+        if (productId) {
+            window.location.href = `/products/${productId}`;
+        }
+    });
+});
+</script>
+@endpush

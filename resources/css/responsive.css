@@ -886,7 +886,7 @@ html, body {
     .best-seller-carousel .carousel-item > div {
         display: flex !important;
         justify-content: flex-start !important;
-        gap: 15px !important;
+        gap: 30px !important;
     }
 
     .best-seller-carousel .carousel-item > div > div {
