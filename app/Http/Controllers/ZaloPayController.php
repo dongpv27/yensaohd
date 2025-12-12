@@ -177,7 +177,7 @@ class ZaloPayController extends Controller
             session()->put('order_confirmation', [
                 'order' => $order,
                 'payment_method_name' => 'Ví ZaloPay',
-                'payment_method' => 'online',
+                'payment_method' => 'zalopay',
                 'online_method' => 'zalopay',
                 'transaction_id' => $apptransid,
             ]);

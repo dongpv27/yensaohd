@@ -36,7 +36,7 @@ return new class extends Migration
             
             // Status
             $table->enum('status', ['pending', 'confirmed', 'processing', 'shipping', 'completed', 'cancelled'])->default('pending');
-            $table->enum('payment_method', ['cod', 'bank', 'vnpay'])->default('cod');
+            $table->enum('payment_method', ['cod', 'bank', 'vnpay', 'momo', 'zalopay'])->default('cod');
             $table->enum('payment_status', ['pending', 'awaiting_payment', 'paid', 'refunded'])->default('pending');
             
             // Payment transaction info

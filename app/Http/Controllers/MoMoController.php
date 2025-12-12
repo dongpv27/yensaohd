@@ -130,7 +130,7 @@ class MoMoController extends Controller
                     session()->put('order_confirmation', [
                         'order' => $order,
                         'payment_method_name' => 'Ví MoMo',
-                        'payment_method' => 'online',
+                        'payment_method' => 'momo',
                         'online_method' => 'momo',
                         'transaction_id' => $transId,
                     ]);
