@@ -213,21 +213,30 @@
                             <div class="payment-description {{ old('payment_method') == 'online' ? '' : 'd-none' }}" id="onlineDescription">
                                 <p class="mb-3">Chọn phương thức thanh toán:</p>
                                 
-                                <!-- Bank Transfer -->
+                                <!-- VNPay -->
                                 <div class="form-check mb-2">
-                                    <input class="form-check-input @error('online_method') is-invalid @enderror" type="radio" name="online_method" id="bankTransfer" value="bank" {{ old('online_method') == 'bank' ? 'checked' : '' }} form="checkoutForm">
-                                    <label class="form-check-label" for="bankTransfer">
-                                        <i class="bi bi-bank text-info me-2"></i>
-                                        Chuyển khoản ngân hàng
+                                    <input class="form-check-input @error('online_method') is-invalid @enderror" type="radio" name="online_method" id="vnpayPayment" value="vnpay" {{ old('online_method', 'vnpay') == 'vnpay' ? 'checked' : '' }} form="checkoutForm">
+                                    <label class="form-check-label d-flex align-items-center" for="vnpayPayment">
+                                        <i class="bi bi-credit-card text-primary me-2"></i>
+                                        <span style="font-weight: 600;">VNPay</span>
                                     </label>
                                 </div>
 
                                 <!-- MoMo -->
                                 <div class="form-check mb-2">
-                                    <input class="form-check-input @error('online_method') is-invalid @enderror" type="radio" name="online_method" id="momoPayment" value="vnpay" {{ old('online_method') == 'vnpay' ? 'checked' : '' }} form="checkoutForm">
+                                    <input class="form-check-input @error('online_method') is-invalid @enderror" type="radio" name="online_method" id="momoPayment" value="momo" {{ old('online_method') == 'momo' ? 'checked' : '' }} form="checkoutForm">
                                     <label class="form-check-label d-flex align-items-center" for="momoPayment">
                                         <img src="{{ asset('images/logo/momo.png') }}" alt="MoMo" style="height: 20px;" class="me-2">
                                         <span style="color: #A50064; font-weight: 600;">MoMo</span>
+                                    </label>
+                                </div>
+
+                                <!-- ZaloPay -->
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input @error('online_method') is-invalid @enderror" type="radio" name="online_method" id="zalopayPayment" value="zalopay" {{ old('online_method') == 'zalopay' ? 'checked' : '' }} form="checkoutForm">
+                                    <label class="form-check-label d-flex align-items-center" for="zalopayPayment">
+                                        <i class="bi bi-wallet2 text-info me-2"></i>
+                                        <span style="color: #008FE5; font-weight: 600;">ZaloPay</span>
                                     </label>
                                 </div>
                                 @error('online_method')

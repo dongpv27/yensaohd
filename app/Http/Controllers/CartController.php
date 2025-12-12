@@ -316,7 +316,7 @@ class CartController extends Controller
             'address' => 'required|string',
             'notes' => 'nullable|string',
             'payment_method' => 'required|in:cod,online',
-            'online_method' => 'required_if:payment_method,online|in:bank,vnpay',
+            'online_method' => 'required_if:payment_method,online|in:vnpay,momo,zalopay',
         ]);
 
         // Get cart items from database
@@ -344,10 +344,12 @@ class CartController extends Controller
             // Determine payment method display name
             $paymentMethodName = 'Thanh toán khi nhận hàng (COD)';
             if ($paymentMethod === 'online') {
-                if ($onlineMethod === 'bank') {
-                    $paymentMethodName = 'Chuyển khoản ngân hàng';
-                } elseif ($onlineMethod === 'vnpay') {
+                if ($onlineMethod === 'vnpay') {
                     $paymentMethodName = 'Ví VNPay';
+                } elseif ($onlineMethod === 'momo') {
+                    $paymentMethodName = 'Ví MoMo';
+                } elseif ($onlineMethod === 'zalopay') {
+                    $paymentMethodName = 'Ví ZaloPay';
                 }
             }
             
@@ -399,12 +401,18 @@ class CartController extends Controller
                 }
             })->delete();
             
-            // If VNPay payment, redirect to VNPay
-            if ($paymentMethod === 'online' && $onlineMethod === 'vnpay') {
-                return app(\App\Http\Controllers\VNPayController::class)->createPayment($order);
+            // If online payment, redirect to appropriate gateway
+            if ($paymentMethod === 'online') {
+                if ($onlineMethod === 'vnpay') {
+                    return app(\App\Http\Controllers\VNPayController::class)->createPayment($order);
+                } elseif ($onlineMethod === 'momo') {
+                    return app(\App\Http\Controllers\MoMoController::class)->createPayment($order);
+                } elseif ($onlineMethod === 'zalopay') {
+                    return app(\App\Http\Controllers\ZaloPayController::class)->createPayment($order);
+                }
             }
             
-            // For COD and Bank transfer, go to confirmation page
+            // For COD, go to confirmation page
             session()->put('order_confirmation', [
                 'order' => $order,
                 'payment_method_name' => $paymentMethodName,

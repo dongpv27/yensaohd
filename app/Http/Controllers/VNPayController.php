@@ -108,6 +108,33 @@ class VNPayController extends Controller
 
         if ($secureHash == $vnp_SecureHash) {
             if ($vnpResponseCode == '00') {
+                // Validate amount
+                if ($order->total != $vnpAmount) {
+                    Log::error('VNPay amount mismatch', [
+                        'order_number' => $order->order_number,
+                        'order_amount' => $order->total,
+                        'vnpay_amount' => $vnpAmount
+                    ]);
+                    return redirect('/checkout')->with('error', 'Số tiền thanh toán không khớp.');
+                }
+
+                // Check if already paid
+                if ($order->payment_status === 'paid') {
+                    Log::warning('VNPay duplicate return attempt', [
+                        'order_number' => $order->order_number,
+                        'transaction_id' => $vnpTranId
+                    ]);
+                    // Still redirect to success page
+                    session()->put('order_confirmation', [
+                        'order' => $order,
+                        'payment_method_name' => 'Ví VNPay',
+                        'payment_method' => 'online',
+                        'online_method' => 'vnpay',
+                        'transaction_id' => $vnpTranId,
+                    ]);
+                    return redirect('/order-confirmation')->with('success', 'Thanh toán đã được xử lý!');
+                }
+
                 // Payment success
                 $order->update([
                     'payment_status' => 'paid',

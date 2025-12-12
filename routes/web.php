@@ -10,6 +10,8 @@ use App\Http\Controllers\Admin\NewsController as AdminNewsController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\VNPayController;
+use App\Http\Controllers\MoMoController;
+use App\Http\Controllers\ZaloPayController;
 
 Route::get('/', [ProductController::class, 'home'])->name('home');
 
@@ -66,11 +68,24 @@ Route::post('/cart/remove/{id}', [CartController::class, 'remove']);
 Route::post('/cart/clear', [CartController::class, 'clear']);
 Route::post('/cart/update/{id}', [CartController::class, 'update']);
 Route::get('/checkout', [CartController::class, 'checkout']);
-Route::post('/checkout', [CartController::class, 'processCheckout']);
+Route::post('/checkout', [CartController::class, 'processCheckout'])->middleware(\App\Http\Middleware\PaymentRateLimit::class);
 Route::get('/order-confirmation', [CartController::class, 'orderConfirmation']);
 
 // VNPay payment routes
 Route::get('/vnpay/return', [VNPayController::class, 'return'])->name('vnpay.return');
+
+// MoMo payment routes
+Route::get('/momo/return', [MoMoController::class, 'return'])->name('momo.return');
+Route::post('/momo/ipn', [MoMoController::class, 'ipn'])
+    ->name('momo.ipn')
+    ->middleware(\App\Http\Middleware\ValidatePaymentCallback::class);
+
+// ZaloPay payment routes
+Route::get('/zalopay/return', [ZaloPayController::class, 'return'])->name('zalopay.return');
+Route::post('/zalopay/callback', [ZaloPayController::class, 'callback'])
+    ->name('zalopay.callback')
+    ->middleware(\App\Http\Middleware\ValidatePaymentCallback::class);
+Route::post('/zalopay/query', [ZaloPayController::class, 'queryOrder'])->name('zalopay.query');
 
 // Admin routes (protected)
 Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
