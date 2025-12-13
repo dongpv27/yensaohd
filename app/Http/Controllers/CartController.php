@@ -316,7 +316,7 @@ class CartController extends Controller
             'address' => 'required|string',
             'notes' => 'nullable|string',
             'payment_method' => 'required|in:cod,online',
-            'online_method' => 'required_if:payment_method,online|in:vnpay,momo,zalopay',
+            'online_method' => 'required_if:payment_method,online|in:vnpay,momo,zalopay,bank',
         ]);
 
         // Get cart items from database
@@ -350,6 +350,8 @@ class CartController extends Controller
                     $paymentMethodName = 'Ví MoMo';
                 } elseif ($onlineMethod === 'zalopay') {
                     $paymentMethodName = 'Ví ZaloPay';
+                } elseif ($onlineMethod === 'bank') {
+                    $paymentMethodName = 'Chuyển khoản ngân hàng';
                 }
             }
             
@@ -409,6 +411,15 @@ class CartController extends Controller
                     return app(\App\Http\Controllers\MoMoController::class)->createPayment($order);
                 } elseif ($onlineMethod === 'zalopay') {
                     return app(\App\Http\Controllers\ZaloPayController::class)->createPayment($order);
+                } elseif ($onlineMethod === 'bank') {
+                    // Bank transfer - show QR code on confirmation page
+                    session()->put('order_confirmation', [
+                        'order' => $order,
+                        'payment_method_name' => $paymentMethodName,
+                        'payment_method' => $paymentMethod,
+                        'online_method' => $onlineMethod,
+                    ]);
+                    return redirect('/order-confirmation')->with('success', 'Đặt hàng thành công!');
                 }
             }
             

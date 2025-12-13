@@ -128,7 +128,7 @@ class VNPayController extends Controller
                     session()->put('order_confirmation', [
                         'order' => $order,
                         'payment_method_name' => 'Ví VNPay',
-                        'payment_method' => 'vnpay',
+                        'payment_method' => 'online',
                         'online_method' => 'vnpay',
                         'transaction_id' => $vnpTranId,
                     ]);
@@ -149,7 +149,7 @@ class VNPayController extends Controller
                 session()->put('order_confirmation', [
                     'order' => $order,
                     'payment_method_name' => 'Ví VNPay',
-                    'payment_method' => 'vnpay',
+                    'payment_method' => 'online',
                     'online_method' => 'vnpay',
                     'transaction_id' => $vnpTranId,
                 ]);

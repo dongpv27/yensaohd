@@ -239,6 +239,15 @@
                                         <span style="color: #008FE5; font-weight: 600;">ZaloPay</span>
                                     </label>
                                 </div>
+
+                                <!-- Bank Transfer -->
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input @error('online_method') is-invalid @enderror" type="radio" name="online_method" id="bankPayment" value="bank" {{ old('online_method') == 'bank' ? 'checked' : '' }} form="checkoutForm">
+                                    <label class="form-check-label d-flex align-items-center" for="bankPayment">
+                                        <i class="bi bi-bank text-success me-2"></i>
+                                        <span style="font-weight: 600;">Chuyển khoản ngân hàng</span>
+                                    </label>
+                                </div>
                                 @error('online_method')
                                     <div class="invalid-feedback d-block">{{ $message }}</div>
                                 @enderror
